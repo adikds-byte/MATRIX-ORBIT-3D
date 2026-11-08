@@ -255,6 +255,81 @@ select{width:100%;padding:9px 10px;border-radius:9px;background:#0b1725;border:1
   #radar .rFoot{font-size:7px}
 }
 @media (max-height:560px){ #radar{bottom:92px;width:112px} }
+
+/* ============ v1.4 : CHAT · CUACA WINDY · SCREENSAVER 3D ============ */
+#wxFrame{position:absolute;inset:0;display:none;background:#04121c}
+#wxFrame.on{display:block}
+#wxFrame iframe{width:100%;height:100%;border:0;display:block;filter:saturate(1.12) contrast(1.04)}
+#wxBadge{position:absolute;left:8px;bottom:8px;z-index:3;font-family:var(--mono);font-size:7.5px;letter-spacing:.1em;
+  padding:3px 7px;border-radius:8px;background:rgba(3,12,20,.82);border:1px solid rgba(56,189,248,.4);color:#9fdcff}
+#wxFallback{position:absolute;inset:0;display:none;place-content:center;text-align:center;padding:18px;font-size:10px;
+  color:#8fb6d6;line-height:1.6;background:#04121c;z-index:2}
+#wxFrame.offline #wxFallback{display:grid}
+
+/* chat */
+#mChat .sheet{max-width:660px}
+#chatWrap{display:flex;flex-direction:column;gap:10px;min-height:44vh;max-height:56vh;overflow-y:auto;padding-right:4px}
+#chatWrap::-webkit-scrollbar{width:5px}
+#chatWrap::-webkit-scrollbar-thumb{background:rgba(56,189,248,.3);border-radius:3px}
+.msg{max-width:94%;animation:msgIn .32s cubic-bezier(.2,.8,.2,1)}
+@keyframes msgIn{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
+.msg.me{align-self:flex-end}
+.msg.me .bub{padding:9px 13px;border-radius:14px 14px 4px 14px;font-size:12.5px;line-height:1.55;
+  background:linear-gradient(135deg,rgba(56,189,248,.28),rgba(34,255,156,.22));border:1px solid rgba(56,189,248,.4);color:#e8f8ff}
+.msg.ai .bub{padding:12px 14px;border-radius:14px 14px 14px 4px;background:linear-gradient(160deg,rgba(8,22,34,.96),rgba(6,16,26,.96));
+  border:1px solid rgba(34,255,156,.28);box-shadow:0 10px 28px rgba(0,0,0,.42)}
+.msg.ai .bub h5{margin:0 0 6px;font-size:11px;letter-spacing:.1em;color:#7dfac0;display:flex;gap:6px;align-items:center}
+.msg.ai .bub h5 i{font-style:normal;font-size:8px;padding:2px 6px;border-radius:6px;background:rgba(56,189,248,.18);
+  border:1px solid rgba(56,189,248,.35);color:#a9dcff;letter-spacing:.14em}
+.msg.ai .bub p{margin:0 0 7px;font-size:12.3px;line-height:1.68;color:#cfe3f5}
+.msg.ai .bub p:last-child{margin-bottom:0}
+.msg.ai .bub ul{margin:2px 0 8px;padding-left:16px}
+.msg.ai .bub li{font-size:12px;line-height:1.62;color:#c3d9ee;margin-bottom:3px}
+.msg.ai .bub b{color:#eafff5}
+.wxGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:7px;margin:4px 0 8px}
+.wxCard{padding:8px 9px;border-radius:10px;background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.22);text-align:center}
+.wxCard .d{font-size:8.5px;letter-spacing:.1em;color:#7fa9c8;text-transform:uppercase}
+.wxCard .i{font-size:19px;line-height:1.3}
+.wxCard .t{font-size:12px;color:#e9f6ff;font-weight:700}
+.wxCard .p{font-size:8.5px;color:#79c8ff}
+.srcRow{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px;padding-top:8px;border-top:1px dashed rgba(56,189,248,.22)}
+.src{display:inline-flex;align-items:center;gap:4px;font-size:8.5px;padding:4px 8px;border-radius:20px;text-decoration:none;
+  background:rgba(10,24,38,.9);border:1px solid rgba(56,189,248,.24);color:#a8cbe6;transition:.16s}
+.src:hover{color:#fff;border-color:var(--acc2);transform:translateY(-1px)}
+.src.w{border-color:rgba(255,255,255,.25);color:#dfe9f5}
+.src.g{border-color:rgba(66,133,244,.5);color:#8ab6ff}
+.src.ai{border-color:rgba(192,132,252,.45);color:#d9b8ff}
+.typing{display:flex;gap:4px;padding:11px 14px}
+.typing span{width:6px;height:6px;border-radius:50%;background:#5fe0a8;animation:tp 1s infinite}
+.typing span:nth-child(2){animation-delay:.15s}.typing span:nth-child(3){animation-delay:.3s}
+@keyframes tp{0%,100%{opacity:.25;transform:translateY(0)}50%{opacity:1;transform:translateY(-4px)}}
+#chatSuggest{display:flex;gap:6px;flex-wrap:wrap;max-height:56px;overflow:auto}
+#chatBar{display:flex;gap:7px;align-items:center}
+#chatIn{flex:1;padding:11px 13px;border-radius:11px;background:#0b1725;border:1px solid var(--line);color:var(--txt);font-size:12.5px;outline:none}
+#chatIn:focus{border-color:var(--acc)}
+#chatSend{width:42px;height:42px;border-radius:11px;border:1px solid rgba(34,255,156,.45);cursor:pointer;
+  background:linear-gradient(135deg,rgba(34,255,156,.28),rgba(56,189,248,.32));color:#eafff5;font-size:16px;display:grid;place-items:center}
+#chatSend:active{transform:scale(.95)}
+
+/* screensaver v1.4 */
+body #ss{background:radial-gradient(circle at 50% 46%,rgba(2,10,18,.08),rgba(1,3,8,.62) 78%);
+  backdrop-filter:blur(.5px);justify-content:space-between;padding:5vh 24px 4.5vh;cursor:grab}
+body.ssOpen #webgl{filter:brightness(1.28) saturate(1.2) contrast(1.04)}
+body.ssOpen #shade{opacity:.5}
+body #ssTop{padding-top:1vh}body #ssBot{padding-bottom:.5vh}
+body #ssTop,body #ssBot{text-shadow:0 2px 18px rgba(0,0,0,.85),0 0 34px rgba(2,8,16,.9)}
+#ss:active{cursor:grabbing}
+#ssTop,#ssBot{display:flex;flex-direction:column;align-items:center;gap:8px;position:relative;z-index:2;pointer-events:none}
+#ssCat{transition:.4s}
+#ssClock{text-shadow:0 0 40px rgba(34,255,156,.55),0 0 100px rgba(56,189,248,.45);animation:ssGlow 4s ease-in-out infinite}
+@keyframes ssGlow{0%,100%{text-shadow:0 0 40px rgba(34,255,156,.5),0 0 100px rgba(56,189,248,.4)}
+  50%{text-shadow:0 0 60px rgba(34,255,156,.8),0 0 130px rgba(56,189,248,.65)}}
+#ssQuote{max-width:720px;font-size:clamp(13px,2.5vw,18px);line-height:1.8;color:#d7ecff;transition:color .5s}
+#ssAuthor{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:#7fc9a6;opacity:.9}
+#ssHint{pointer-events:none}
+body.ssOpen #ui{opacity:0;pointer-events:none;transform:scale(.98)}
+#ui{transition:opacity .45s ease,transform .45s ease}
+body.ssOpen #scan{opacity:.35}
 /* ============ BOOT ============ */
 #boot{position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;padding:22px;
   background:radial-gradient(circle at 50% 42%,rgba(6,18,34,.62),rgba(2,6,12,.94) 72%);backdrop-filter:blur(6px);transition:opacity .8s ease,visibility .8s}
@@ -358,20 +433,20 @@ select{width:100%;padding:9px 10px;border-radius:9px;background:#0b1725;border:1
 <!-- ================= BOOT ================= -->
 <div id="boot">
   <div class="bootInner">
-    <div class="bootTag">NEWBIE AI · REAL-TIME 3D ENGINE · v1.3</div>
+    <div class="bootTag">NEWBIE AI · REAL-TIME 3D ENGINE · v1.4</div>
     <h1>MATRIX <span>ORBIT</span> 3D</h1>
-    <p>Hologram wajah · bumi realistis + zoom · galeri foto · radar · matrix rain</p>
+    <p>Chat AI · radar cuaca Windy · bumi realistis + zoom · galeri foto · screensaver 3D</p>
     <div class="bootBar"><i id="bootFill"></i></div>
     <div class="bootStat"><span id="bootPct">0%</span><span id="bootMsg">Menyiapkan mesin 3D…</span></div>
     <button id="bootBtn" class="btn primary" disabled>MEMUAT…</button>
-    <div class="bootHint">Setelah masuk: pilih foto di <b>GALERI</b>, unggah lewat <b>FOTO</b>, atau seret gambar ke layar.</div>
+    <div class="bootHint">Saat 100% dasbor terbuka otomatis. Setelah itu coba tombol <b>CHAT AI</b> dan <b>CUACA</b>, atau pilih foto di <b>GALERI</b>.</div>
   </div>
 </div>
 
 <!-- ================= UI ================= -->
 <div id="ui">
   <header id="topbar">
-    <div class="brand"><span class="dot"></span> MATRIX ORBIT 3D <em>v1.3</em></div>
+    <div class="brand"><span class="dot"></span> MATRIX ORBIT 3D <em>v1.4</em></div>
     <div class="chips">
       <span class="chip" id="chipFps">FPS --</span>
       <span class="chip ok" id="chipMatrix">MATRIX ONLINE</span>
@@ -404,6 +479,11 @@ select{width:100%;padding:9px 10px;border-radius:9px;background:#0b1725;border:1
           <div class="grid"></div>
           <div class="tint"></div>
           <div class="scanline"></div>
+          <div id="wxFrame">
+            <iframe id="wxIframe" title="Radar cuaca Windy" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+            <div id="wxFallback">Radar cuaca butuh koneksi internet.<br>Buka di tab baru lewat tombol CUACA.</div>
+          </div>
+          <div id="wxBadge">RADAR · WINDY</div>
         </div>
       </div>
       <div id="faceTags">
@@ -430,6 +510,12 @@ select{width:100%;padding:9px 10px;border-radius:9px;background:#0b1725;border:1
         <button class="btn small" id="btnGalAll">🖼 BUKA GALERI LENGKAP</button>
         <label class="lbl">Zoom wajah <b id="zoomVal">1.00×</b>
           <input type="range" id="faceZoom" min="0.6" max="2.4" step="0.02" value="1">
+        </label>
+        <label class="lbl">Isi bingkai
+          <select id="frameMode">
+            <option value="foto">Foto / hologram wajah</option>
+            <option value="cuaca">Radar cuaca (Windy)</option>
+          </select>
         </label>
         <label class="lbl">Bentuk bingkai
           <select id="faceMask">
@@ -463,6 +549,8 @@ select{width:100%;padding:9px 10px;border-radius:9px;background:#0b1725;border:1
       <button class="dk on" id="dTerm"><svg viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="15" rx="2"/><path d="M7 10l2.6 2.4L7 14.8M12.5 15h4"/></svg><span class="l">TERMINAL</span></button>
       <button class="dk" id="dPng"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M4 17l4.6-4.2L13 17l3-2.6 4 3.4"/></svg><span class="l">PNG</span></button>
       <button class="dk" id="dApps"><svg viewBox="0 0 24 24"><rect x="3.4" y="3.4" width="7.2" height="7.2" rx="1.7"/><rect x="13.4" y="3.4" width="7.2" height="7.2" rx="1.7"/><rect x="3.4" y="13.4" width="7.2" height="7.2" rx="1.7"/><rect x="13.4" y="13.4" width="7.2" height="7.2" rx="1.7"/></svg><span class="l">APLIKASI</span></button>
+      <button class="dk" id="dChat"><svg viewBox="0 0 24 24"><path d="M20.5 12a7.9 7.9 0 01-8.4 7.9 9 9 0 01-2.6-.4L4.5 21l1.2-4.3A7.8 7.8 0 014 12a7.9 7.9 0 018.4-7.9A7.9 7.9 0 0120.5 12z"/><path d="M9 11h6M9 14h3.5"/></svg><span class="l">CHAT AI</span></button>
+      <button class="dk" id="dWx"><svg viewBox="0 0 24 24"><path d="M7.5 18a3.5 3.5 0 01-.5-6.96A5 5 0 0116.9 10a4 4 0 01.6 7.96z"/><path d="M8.4 20.4l-.9 1.6M12 20.4l-.9 1.6M15.6 20.4l-.9 1.6"/></svg><span class="l">CUACA</span></button>
       <button class="dk on" id="dRadar"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6"/><circle cx="12" cy="12" r="4.6"/><path d="M12 12l5.6-5.6"/><circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none"/></svg><span class="l">RADAR</span></button>
       <button class="dk" id="dSet"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.1"/><path d="M19.4 15a1.6 1.6 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.6 1.6 0 00-1.8-.3 1.6 1.6 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.6 1.6 0 00-1-1.5 1.6 1.6 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.6 1.6 0 00.3-1.8 1.6 1.6 0 00-1.5-1H3a2 2 0 110-4h.1a1.6 1.6 0 001.5-1 1.6 1.6 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.6 1.6 0 001.8.3H9a1.6 1.6 0 001-1.5V3a2 2 0 114 0v.1a1.6 1.6 0 001 1.5 1.6 1.6 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.6 1.6 0 00-.3 1.8V9a1.6 1.6 0 001.5 1H21a2 2 0 110 4h-.1a1.6 1.6 0 00-1.5 1z"/></svg><span class="l">SETELAN</span></button>
       <button class="dk" id="dHelp"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 114 2.3c-.9.6-1.6 1.1-1.6 2.1"/><circle cx="12" cy="17" r=".9" fill="currentColor" stroke="none"/></svg><span class="l">BANTUAN</span></button>
@@ -494,6 +582,11 @@ select{width:100%;padding:9px 10px;border-radius:9px;background:#0b1725;border:1
       <label class="lbl">Kecepatan awan <b id="crVal">0.062</b><input type="range" id="setCloud" min="0" max="0.35" step="0.005" value="0.062"></label>
       <label class="lbl">Jarak kamera (zoom out) <b id="czVal">4.4</b><input type="range" id="setCam" min="2.6" max="8" step="0.1" value="4.4"></label>
       <label class="lbl">Orbit kamera <b id="orbVal">ON</b><input type="range" id="setOrbit" min="0" max="1" step="1" value="1"></label>
+      <h4>CUACA &amp; RADAR</h4>
+      <label class="lbl">Kota prakiraan cuaca
+        <input type="text" id="setCity" placeholder="contoh: Kudus, Semarang, Jakarta" style="width:100%;padding:9px 10px;border-radius:9px;background:#0b1725;border:1px solid var(--line);color:var(--txt);font-size:11.5px">
+      </label>
+      <div class="mini" id="setCoord">Koordinat: -6.7869, 110.8499</div>
       <h4>ANTARMUKA</h4>
       <div class="switchRow"><span>Terminal tampil</span><div class="sw on" id="swTerm"></div></div>
       <div class="switchRow"><span>Animasi radar aktif</span><div class="sw on" id="swRadar"></div></div>
@@ -531,10 +624,13 @@ select{width:100%;padding:9px 10px;border-radius:9px;background:#0b1725;border:1
         <div class="helpItem"><b>Galeri foto</b>11 foto siap pakai (termasuk fotomu). Ketuk untuk mengganti hologram wajah.</div>
         <div class="helpItem"><b>My Aplikasi</b>Direktori aplikasi dengan pencarian dan filter kategori.</div>
         <div class="helpItem"><b>Sembunyikan foto</b>Tombol ✕ di sudut bingkai untuk menutup hologram, lalu 👁 TAMPILKAN FOTO untuk membukanya lagi.</div>
+        <div class="helpItem"><b>Chat AI</b>Tanya apa saja: definisi, cuaca, hitungan, bantuan. Jawaban detail dengan tautan Wikipedia, Google, dan AI lain.</div>
+        <div class="helpItem"><b>Radar cuaca Windy</b>Tombol CUACA mengganti bingkai foto dengan peta radar hujan real-time.</div>
+        <div class="helpItem"><b>Screensaver 3D</b>Bumi berawan bisa diputar dan dizoom, lengkap dengan jam, tanggal, kutipan, dan doa.</div>
         <div class="helpItem"><b>Radar hacker</b>Animasi sapuan radar dengan target bergerak. Tombol RADAR di dock untuk mengaktifkan / mematikan.</div>
       </div>
       <div class="credit">
-        <b>MATRIX ORBIT 3D v1.3</b> · dibangun oleh <b>Ir. Mohamad Hartadi</b><br>
+        <b>MATRIX ORBIT 3D v1.4</b> · dibangun oleh <b>Ir. Mohamad Hartadi</b><br>
         <a href="https://facebook.com/m.hartadi" target="_blank" rel="noopener">facebook.com/m.hartadi</a> ·
         <a href="https://newbieonline7.blogspot.com" target="_blank" rel="noopener">newbieonline7.blogspot.com</a> ·
         <a href="https://wa.me/6282231036047" target="_blank" rel="noopener">WA 0822-3103-6047</a>
@@ -575,13 +671,35 @@ select{width:100%;padding:9px 10px;border-radius:9px;background:#0b1725;border:1
   </div>
 </div>
 
+
+<!-- ================= CHAT AI ================= -->
+<div class="modal" id="mChat">
+  <div class="sheet">
+    <div class="sheetHead"><h2>◈ NEXUS AI · ASISTEN PINTAR</h2><button data-close="mChat">✕</button></div>
+    <div class="sheetBody">
+      <div id="chatWrap"></div>
+      <div id="chatSuggest"></div>
+      <div id="chatBar">
+        <input id="chatIn" type="text" placeholder="Tanya apa saja: cuaca, definisi, hitungan, doa…" autocomplete="off">
+        <button id="chatSend" title="Kirim">➤</button>
+      </div>
+      <div class="mini" id="chatCity">Lokasi cuaca: <b>Kudus</b> · ketik "cuaca Jakarta" untuk mengganti</div>
+    </div>
+  </div>
+</div>
+
 <!-- ================= SCREENSAVER ================= -->
 <div id="ss">
-  <div id="ssCat">KATA BIJAK</div>
-  <div id="ssClock">00:00:00</div>
-  <div id="ssDate">—</div>
-  <div id="ssQuote">…</div>
-  <div id="ssHint">KLIK / TEKAN TOMBOL UNTUK KEMBALI</div>
+  <div id="ssTop">
+    <div id="ssCat">KATA BIJAK</div>
+    <div id="ssClock">00:00:00</div>
+    <div id="ssDate">—</div>
+  </div>
+  <div id="ssBot">
+    <div id="ssQuote">…</div>
+    <div id="ssAuthor">—</div>
+  </div>
+  <div id="ssHint">SERET UNTUK MEMUTAR BUMI · SCROLL / PINCH UNTUK ZOOM · KLIK UNTUK KEMBALI</div>
 </div>
 
 <div id="dropHint">
@@ -704,7 +822,7 @@ var MYAPPS = [
 var DEF = {
   matrixOn:true, matrixSpeed:1, matrixOpacity:0.45, fontSize:16, matrixColor:'#22ff88',
   earthRot:0.045, cloudRot:0.062, camZ:4.4, orbit:1,
-  faceZoom:1, faceMask:'circle', terminalOn:true, ssIdle:3, facePick:-1, faceHidden:false, radarOn:true,
+  faceZoom:1, faceMask:'circle', terminalOn:true, ssIdle:3, facePick:-1, faceHidden:false, radarOn:true, frameMode:'foto', wxCity:'Kudus', wxLat:-6.7869, wxLon:110.8499,
   ticker:'MATRIX ORBIT 3D · BUMI REALISTIS BERPUTAR · MATRIX RAIN ONLINE · SCAN BIOMETRIK BERJALAN · HOLOGRAM WAJAH AKTIF · '
 };
 var CFG = {};
@@ -1005,8 +1123,13 @@ function finishBoot(){
   if(bootTimer){ clearInterval(bootTimer); bootTimer = null; }
   setBoot(100, 'Sistem siap');
   var b = $('bootBtn');
-  b.disabled = false; b.textContent = 'MASUK KE DASBOR';
+  b.disabled = false; b.textContent = 'MASUK KE DASBOR →';
+  clearTimeout(bootAuto);
+  bootAuto = setTimeout(function(){
+    if(!$('boot').classList.contains('hide')) startApp(true);
+  }, 850);
 }
+var bootAuto = null;
 
 var lastT = 0, fpsAcc = 0, fpsFrames = 0;
 function animate(t){
@@ -1262,7 +1385,7 @@ function stopCam(){
 
 /* ---------------- UI WIRING ---------------- */
 function bindUI(){
-  $('bootBtn').addEventListener('click', startApp);
+  $('bootBtn').addEventListener('click', function(){ startApp(false); });
 
   $('btnUpload').addEventListener('click', function(){ $('fileInput').click(); });
   $('dUpload').addEventListener('click', function(){ $('fileInput').click(); });
@@ -1354,7 +1477,7 @@ function bindUI(){
     CFG = Object.assign({}, DEF); saveCfg(); applyAll(); toast('Setelan dikembalikan ke default');
   });
 
-  $('ss').addEventListener('click', ssClose);
+  $('ss').addEventListener('click', function(){ ssClose(); });
   document.addEventListener('keydown', function(e){
     if($('ss').classList.contains('on')){ ssClose(); return; }
     if(e.key === 'Escape'){
@@ -1394,6 +1517,7 @@ function bindUI(){
   window.addEventListener('orientationchange', function(){ setTimeout(onResize, 250); });
   initV12();
   initV13();
+  initV14();
 }
 
 function openModal(id){ $(id).classList.add('on'); }
@@ -1725,8 +1849,349 @@ function initV13(){
   log('Radar hacker siap · klik tombol RADAR untuk on/off');
 }
 
+
+/* =====================================================================
+   v1.4 : CHAT AI · RADAR CUACA WINDY · SCREENSAVER BUMI 3D
+   ===================================================================== */
+function initV14(){
+
+  /* ================= CUACA ================= */
+  var WXC = {
+    0:['Cerah','☀️'],1:['Cerah sebagian','🌤️'],2:['Berawan sebagian','⛅'],3:['Mendung','☁️'],
+    45:['Berkabut','🌫️'],48:['Kabut beku','🌫️'],51:['Gerimis ringan','🌦️'],53:['Gerimis','🌦️'],
+    55:['Gerimis lebat','🌧️'],61:['Hujan ringan','🌦️'],63:['Hujan','🌧️'],65:['Hujan lebat','🌧️'],
+    66:['Hujan beku','🌧️'],67:['Hujan beku lebat','🌧️'],71:['Salju ringan','🌨️'],73:['Salju','🌨️'],
+    75:['Salju lebat','🌨️'],80:['Hujan lokal','🌦️'],81:['Hujan lokal lebat','🌧️'],82:['Hujan sangat lebat','⛈️'],
+    95:['Badai petir','⛈️'],96:['Badai + hujan es','⛈️'],99:['Badai hebat + hujan es','⛈️']
+  };
+  function wxInfo(c){ return WXC[c] || ['Tidak diketahui','🌡️']; }
+
+  var WX = { city: CFG.wxCity || 'Kudus', lat: CFG.wxLat, lon: CFG.wxLon, data: null, ts: 0 };
+
+  async function wxGeocode(name){
+    var r = await fetch('https://geocoding-api.open-meteo.com/v1/search?count=1&language=id&format=json&name=' + encodeURIComponent(name));
+    var j = await r.json();
+    if(!j.results || !j.results.length) return null;
+    var g = j.results[0];
+    return {city: g.name, lat: g.latitude, lon: g.longitude, admin: g.admin1 || '', country: g.country || ''};
+  }
+  async function wxFetch(){
+    var u = 'https://api.open-meteo.com/v1/forecast?latitude=' + WX.lat + '&longitude=' + WX.lon +
+      '&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,precipitation' +
+      '&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max' +
+      '&timezone=Asia%2FJakarta&forecast_days=5';
+    var r = await fetch(u); if(!r.ok) throw new Error('cuaca ' + r.status);
+    WX.data = await r.json(); WX.ts = Date.now();
+    return WX.data;
+  }
+  function wxWindy(lat, lon, zoom){
+    return 'https://embed.windy.com/embed2.html?lat=' + lat + '&lon=' + lon + '&detailLat=' + lat + '&detailLon=' + lon +
+      '&width=650&height=450&zoom=' + (zoom || 6) + '&level=surface&overlay=radar&product=radar&menu=false&message=false' +
+      '&marker=true&calendar=now&pressure=false&type=map&location=coordinates&detail=false&metricWind=default&metricTemp=default&radarRange=-1';
+  }
+
+  var wxI = $('wxIframe'), wxLoaded = false;
+  function applyFrame(){
+    var cuaca = CFG.frameMode === 'cuaca';
+    $('wxFrame').classList.toggle('on', cuaca);
+    $('faceImg').style.display = cuaca ? 'none' : '';
+    var sel = $('frameMode'); if(sel) sel.value = CFG.frameMode;
+    if(cuaca){
+      if(!wxLoaded){
+        wxI.src = wxWindy(WX.lat, WX.lon, 6);
+        wxLoaded = true;
+        wxI.addEventListener('error', function(){ $('wxFrame').classList.add('offline'); });
+      } else {
+        wxI.src = wxWindy(WX.lat, WX.lon, 6);
+      }
+      log('Bingkai: radar cuaca Windy (' + WX.city + ')', 'acc');
+    }
+  }
+  window.mxFrame = function(mode){
+    CFG.frameMode = mode; saveCfg(); applyFrame();
+    toast(mode === 'cuaca' ? 'Bingkai radar cuaca aktif' : 'Bingkai foto aktif');
+  };
+  $('frameMode').addEventListener('change', function(e){ window.mxFrame(e.target.value); });
+  $('dWx').addEventListener('click', function(){
+    window.mxFrame(CFG.frameMode === 'cuaca' ? 'foto' : 'cuaca');
+    $('dWx').classList.toggle('on', CFG.frameMode === 'cuaca');
+  });
+  applyFrame();
+  $('dWx').classList.toggle('on', CFG.frameMode === 'cuaca');
+
+  /* ================= CHAT AI ================= */
+  var chatWrap = $('chatWrap'), chatIn = $('chatIn');
+  var SUGGEST = ['Cuaca hari ini', 'Apa itu bendungan?', 'Jelaskan kecerdasan artifisial', 'Hitung 15*24+120',
+                 'Doa sebelum bekerja', 'Cara pakai aplikasi ini'];
+
+  function esc(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function e2(t){ return encodeURIComponent(t); }
+  function scrollBottom(){ chatWrap.scrollTop = chatWrap.scrollHeight; }
+
+  function addMsg(kind, html){
+    var d = document.createElement('div');
+    d.className = 'msg ' + kind;
+    d.innerHTML = '<div class="bub">' + html + '</div>';
+    chatWrap.appendChild(d); scrollBottom();
+    return d;
+  }
+  function srcRow(q){
+    var items = [
+      ['Wikipedia ID', 'https://id.wikipedia.org/w/index.php?search=' + e2(q), 'w'],
+      ['Wikipedia EN', 'https://en.wikipedia.org/w/index.php?search=' + e2(q), 'w'],
+      ['Google', 'https://www.google.com/search?q=' + e2(q), 'g'],
+      ['Bing', 'https://www.bing.com/search?q=' + e2(q), ''],
+      ['ChatGPT', 'https://chat.openai.com/', 'ai'],
+      ['Gemini', 'https://gemini.google.com/app', 'ai'],
+      ['Perplexity', 'https://www.perplexity.ai/search?q=' + e2(q), 'ai'],
+      ['Windy', 'https://www.windy.com/?radar,' + WX.lat + ',' + WX.lon + ',6', '']
+    ];
+    var h = '<div class="srcRow">';
+    items.forEach(function(it){
+      h += '<a class="src ' + it[2] + '" href="' + it[1] + '" target="_blank" rel="noopener">' + it[0] + '</a>';
+    });
+    return h + '</div>';
+  }
+
+  /* --- cuaca --- */
+  async function answerWeather(cityName){
+    if(cityName && cityName.toLowerCase() !== WX.city.toLowerCase()){
+      try{
+        var g = await wxGeocode(cityName);
+        if(g){ WX.city = g.city; WX.lat = g.lat; WX.lon = g.lon; CFG.wxCity = g.city; CFG.wxLat = g.lat; CFG.wxLon = g.lon; saveCfg(); wxLoaded = false; applyFrame(); }
+      }catch(e){}
+    }
+    try{
+      var d = await wxFetch();
+      var cur = d.current, code = wxInfo(cur.weather_code);
+      var days = ['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
+      var cards = '';
+      for(var i=0;i<d.daily.time.length;i++){
+        var dt = new Date(d.daily.time[i] + 'T00:00:00');
+        var inf = wxInfo(d.daily.weather_code[i]);
+        cards += '<div class="wxCard"><div class="d">' + days[dt.getDay()] + ' ' + dt.getDate() + '/' + (dt.getMonth()+1) +
+          '</div><div class="i">' + inf[1] + '</div><div class="t">' + Math.round(d.daily.temperature_2m_max[i]) + '° / ' +
+          Math.round(d.daily.temperature_2m_min[i]) + '°</div><div class="p">' + (d.daily.precipitation_probability_max[i] ?? 0) + '% hujan</div></div>';
+      }
+      var html = '<h5>☁ PRAKIRAAN CUACA <i>OPEN-METEO</i></h5>' +
+        '<p><b>' + esc(WX.city) + '</b> — saat ini <b>' + Math.round(cur.temperature_2m) + '°C</b>, ' + code[0] + ' ' + code[1] +
+        '. Terasa seperti ' + Math.round(cur.apparent_temperature) + '°C, kelembapan ' + cur.relative_humidity_2m +
+        '%, angin ' + Math.round(cur.wind_speed_10m) + ' km/jam, hujan ' + cur.precipitation + ' mm.</p>' +
+        '<div class="wxGrid">' + cards + '</div>' +
+        '<p style="font-size:11px;color:#8fb6d6">Radar hujan real-time ada di bingkai CUACA (Windy) — tombol CUACA di dock.</p>' + srcRow('cuaca ' + WX.city);
+      addMsg('ai', html);
+    }catch(err){
+      addMsg('ai', '<h5>☁ PRAKIRAAN CUACA</h5><p>Data cuaca tidak bisa diambil saat ini (' + esc(err.message) +
+        '). Kamu masih bisa melihat radar langsung lewat tombol <b>CUACA</b> di dock atau tautan di bawah.</p>' + srcRow('cuaca ' + WX.city));
+    }
+  }
+
+  /* --- wikipedia --- */
+  async function wikiSearch(q, lang){
+    var u = 'https://' + lang + '.wikipedia.org/w/api.php?action=query&list=search&srlimit=1&format=json&origin=*&srsearch=' + e2(q);
+    var r = await fetch(u); var j = await r.json();
+    var hit = j.query && j.query.search && j.query.search[0];
+    return hit ? hit.title : null;
+  }
+  async function wikiSummary(title, lang){
+    var u = 'https://' + lang + '.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(title.replace(/ /g,'_'));
+    var r = await fetch(u); if(!r.ok) return null;
+    return await r.json();
+  }
+  async function answerWiki(q){
+    var title = null, lang = 'id', sum = null;
+    try{ title = await wikiSearch(q, 'id'); if(title) sum = await wikiSummary(title, 'id'); }catch(e){}
+    if(!sum){
+      try{ title = await wikiSearch(q, 'en'); if(title){ sum = await wikiSummary(title, 'en'); lang = 'en'; } }catch(e){}
+    }
+    if(!sum){
+      addMsg('ai', '<h5>◈ JAWABAN <i>NEXUS</i></h5><p>Saya belum menemukan artikel yang pas untuk <b>' + esc(q) +
+        '</b>. Coba kata kunci lain, atau buka pencarian langsung di sumber berikut.</p>' + srcRow(q));
+      return;
+    }
+    var paras = (sum.extract || '').split(/(?<=\.)\s+/).filter(function(x){ return x.length > 40; });
+    var lead = paras.slice(0, 2).join(' ');
+    var points = paras.slice(2, 6);
+    var html = '<h5>◈ ' + esc(sum.title) + ' <i>WIKIPEDIA ' + lang.toUpperCase() + '</i></h5>';
+    if(sum.description) html += '<p style="font-size:10.5px;color:#8fb6d6;letter-spacing:.04em">' + esc(sum.description) + '</p>';
+    html += '<p>' + esc(lead || sum.extract || '') + '</p>';
+    if(points.length){
+      html += '<ul>' + points.map(function(p){ return '<li>' + esc(p.replace(/^\s*/,'')) + '</li>'; }).join('') + '</ul>';
+    }
+    html += '<p><a class="src w" href="' + sum.content_urls.desktop.page + '" target="_blank" rel="noopener">Baca artikel lengkap →</a></p>';
+    html += srcRow(sum.title);
+    addMsg('ai', html);
+  }
+
+  /* --- lain-lain --- */
+  function answerTime(){
+    var d = new Date();
+    var days = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+    var mons = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+    var p = ('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2)+':'+('0'+d.getSeconds()).slice(-2);
+    addMsg('ai','<h5>🕒 WAKTU SEKARANG <i>WIB</i></h5><p><b>' + p + '</b> WIB</p><p>' + days[d.getDay()] + ', ' +
+      d.getDate() + ' ' + mons[d.getMonth()] + ' ' + d.getFullYear() + '</p>' + srcRow('waktu indonesia barat'));
+  }
+  function answerMath(q){
+    var expr = q.replace(/[^0-9+\-*/().,%^ ]/g,'').replace(/\^/g,'**').trim();
+    if(!expr){ answerWiki(q); return; }
+    try{
+      var val = Function('"use strict";return (' + expr + ')')();
+      if(typeof val !== 'number' || !isFinite(val)) throw 0;
+      addMsg('ai','<h5>🧮 KALKULATOR <i>NEXUS</i></h5><p>' + esc(expr) + ' = <b>' + val.toLocaleString('id-ID') + '</b></p>' + srcRow(expr));
+    }catch(e){ answerWiki(q); }
+  }
+  function answerHelp(){
+    addMsg('ai','<h5>◈ PANDUAN APLIKASI <i>NEXUS</i></h5>' +
+      '<p>Beberapa hal yang bisa kamu lakukan di sini:</p><ul>' +
+      '<li><b>Chat AI</b> — tanya definisi, cuaca, hitungan, atau minta penjelasan detail.</li>' +
+      '<li><b>CUACA</b> — mengganti bingkai foto dengan radar hujan Windy real-time.</li>' +
+      '<li><b>GALERI / FOTO</b> — 16 foto siap pakai atau unggah fotomu sendiri.</li>' +
+      '<li><b>Zoom bumi</b> — tombol −/+, scroll, atau pinch dua jari.</li>' +
+      '<li><b>RADAR</b> — animasi sapuan radar hacker, bisa dimatikan.</li>' +
+      '<li><b>Screensaver</b> — bumi 3D bisa diputar & dizoom, dengan jam, tanggal, kutipan, dan doa.</li></ul>' +
+      srcRow('matriks orbit aplikasi'));
+  }
+
+  async function answer(q){
+    var t = q.toLowerCase();
+    var m;
+    if(/^(cuaca|prakiraan|weather)/.test(t) || /cuaca/.test(t) && t.length < 40){
+      var city = q.replace(/^(cuaca|prakiraan cuaca|weather)\s*(di|untuk|kota)?\s*/i,'').trim();
+      await answerWeather(city && city.length > 1 ? city : null);
+      return;
+    }
+    if(/(jam berapa|pukul berapa|tanggal berapa|hari apa|waktu sekarang)/.test(t)){ answerTime(); return; }
+    if(/^(hitung|kalkulator|berapa)\b/.test(t) || /^[\d(].*[+\-*/^]/.test(t)){ answerMath(q); return; }
+    if(/(bantuan|cara pakai|fitur|panduan|help)/.test(t)){ answerHelp(); return; }
+    await answerWiki(q);
+  }
+
+  function send(text){
+    var q = (text || chatIn.value || '').trim();
+    if(!q) return;
+    addMsg('me', esc(q));
+    chatIn.value = '';
+    var tp = addMsg('ai', '<div class="typing"><span></span><span></span><span></span></div>');
+    answer(q).catch(function(err){
+      tp.remove();
+      addMsg('ai','<h5>◈ JAWABAN</h5><p>Terjadi kendala: ' + esc(err.message) + '. Coba lagi.</p>' + srcRow(q));
+    }).then(function(){ tp.remove(); scrollBottom(); });
+  }
+
+  $('chatSend').addEventListener('click', function(){ send(); });
+  chatIn.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); send(); } });
+  var sg = '';
+  SUGGEST.forEach(function(x){ sg += '<button class="chipBtn" data-q="' + esc(x) + '">' + x + '</button>'; });
+  $('chatSuggest').innerHTML = sg;
+  $('chatSuggest').addEventListener('click', function(e){
+    var b = e.target.closest('[data-q]'); if(b) send(b.getAttribute('data-q'));
+  });
+
+  function openChat(){
+    openModal('mChat');
+    if(!chatWrap.children.length){
+      addMsg('ai','<h5>◈ NEXUS AI <i>SIAP</i></h5><p>Halo! Saya bisa menjelaskan topik apa pun secara detail, memberi prakiraan cuaca, menghitung, dan menyertakan tautan sumber. Silakan tanya atau pilih salah satu saran di bawah.</p>');
+    }
+    setTimeout(function(){ chatIn.focus(); scrollBottom(); }, 250);
+  }
+  $('dChat').addEventListener('click', openChat);
+
+  /* ================= KOTA CUACA (setelan) ================= */
+  var setCity = $('setCity'), setCoord = $('setCoord');
+  if(setCity){ setCity.value = WX.city; }
+  function coordText(){ if(setCoord) setCoord.textContent = 'Koordinat: ' + WX.lat.toFixed(4) + ', ' + WX.lon.toFixed(4); }
+  coordText();
+  if(setCity){
+    setCity.addEventListener('change', async function(){
+      var v = setCity.value.trim(); if(!v) return;
+      try{
+        var g = await wxGeocode(v);
+        if(!g){ toast('Kota tidak ditemukan'); return; }
+        WX.city = g.city; WX.lat = g.lat; WX.lon = g.lon;
+        CFG.wxCity = g.city; CFG.wxLat = g.lat; CFG.wxLon = g.lon; saveCfg();
+        coordText(); wxLoaded = false; applyFrame();
+        toast('Lokasi cuaca: ' + g.city);
+        log('Lokasi cuaca diubah → ' + g.city, 'acc');
+      }catch(e){ toast('Gagal mencari kota'); }
+    });
+  }
+
+  /* ================= SCREENSAVER BUMI 3D ================= */
+  var QUO = [
+    ['KATA BIJAK','Ilmu tanpa amal seperti pohon tanpa buah.','Pepatah'],
+    ['MOTIVASI','Kerja hari ini adalah hasil yang dinikmati tahun depan.','Ir. Mohamad Hartadi'],
+    ['DOA','Ya Allah, mudahkanlah urusan kami dan berkahilah setiap ikhtiar.','Doa harian'],
+    ['KATA BIJAK','Bumi tidak pernah lelah berputar; jangan lelah memperbaiki diri.','Refleksi'],
+    ['MOTIVASI','Angka tidak pernah bohong, manusianya yang harus teliti.','Catatan engineer'],
+    ['DOA','Bismillah, kami mulai dengan nama-Mu, dan kepada-Mu kami kembali.','Doa memulai kerja'],
+    ['KATA BIJAK','Yang kecil dikerjakan rapi akan menjadi besar dengan sendirinya.','Pepatah'],
+    ['MOTIVASI','Bukan yang paling pintar yang menang, tapi yang paling konsisten.','Motivasi kerja'],
+    ['DOA','Ya Allah, lindungilah keluarga kami di mana pun berada.','Doa keluarga'],
+    ['KATA BIJAK','Tenang bukan berarti diam, tapi tahu apa yang sedang dikerjakan.','Refleksi']
+  ];
+  QUO.forEach(function(q){ if(!QUOTES.some(function(o){ return o[1] === q[1]; })) QUOTES.push(q); });
+
+  var _ssQuoteNext = ssQuoteNext, _ssOpen = ssOpen, _ssClose = ssClose;
+  ssQuoteNext = function(){
+    _ssQuoteNext();
+    var q = QUOTES[(qI - 1 + QUOTES.length) % QUOTES.length] || QUOTES[0];
+    var col = q[0] === 'DOA' ? '#9dffd0' : (q[0] === 'MOTIVASI' ? '#ffdf9b' : '#bfe6ff');
+    var bd  = q[0] === 'DOA' ? 'rgba(34,255,156,.55)' : (q[0] === 'MOTIVASI' ? 'rgba(251,191,36,.55)' : 'rgba(56,189,248,.5)');
+    $('ssCat').style.color = col; $('ssCat').style.borderColor = bd;
+    $('ssQuote').style.color = col;
+    var au = $('ssAuthor'); if(au) au.textContent = '— ' + (q[2] || 'MATRIX ORBIT 3D');
+  };
+
+  var ssZoomPrev = null;
+  ssOpen = function(){
+    _ssOpen();
+    document.body.classList.add('ssOpen');
+    ssZoomPrev = targetZ;
+    if(window.mxSetZoom) window.mxSetZoom(Math.max(targetZ, 5.6), true);
+    ssQuoteNext();
+  };
+  ssClose = function(){
+    _ssClose();
+    document.body.classList.remove('ssOpen');
+    if(ssZoomPrev && window.mxSetZoom) window.mxSetZoom(ssZoomPrev, true);
+    ssZoomPrev = null;
+  };
+
+  // seret untuk memutar bumi + klik untuk keluar
+  var drag = {on:false, x:0, y:0, moved:0};
+  var ssEl = $('ss');
+  document.addEventListener('click', function(e){
+    if(drag.moved >= 8 && $('ss').classList.contains('on')){
+      e.stopPropagation(); e.preventDefault(); drag.moved = 0;
+    }
+  }, true);
+  ssEl.addEventListener('pointerdown', function(e){
+    drag.on = true; drag.x = e.clientX; drag.y = e.clientY; drag.moved = 0;
+    ssEl.setPointerCapture && ssEl.setPointerCapture(e.pointerId);
+  });
+  ssEl.addEventListener('pointermove', function(e){
+    if(!drag.on || !earthGroup) return;
+    var dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+    drag.x = e.clientX; drag.y = e.clientY;
+    drag.moved += Math.abs(dx) + Math.abs(dy);
+    earthGroup.rotation.y += dx * 0.0055;
+    earthGroup.rotation.x = Math.max(-0.7, Math.min(0.7, earthGroup.rotation.x + dy * 0.0035));
+  });
+  ssEl.addEventListener('pointerup', function(e){
+    if(!drag.on) return; drag.on = false;
+    if(drag.moved < 8) ssClose();     // klik = keluar, seret = putar bumi
+  });
+  ssEl.addEventListener('pointercancel', function(){ drag.on = false; });
+
+  log('Chat AI siap · cuaca ' + WX.city + ' · bingkai: ' + CFG.frameMode, 'acc');
+}
+
 /* ---------------- START ---------------- */
-function startApp(){
+var entered = false;
+function startApp(auto){
+  if(entered) return; entered = true;
+  if(auto){ log('Boot 100% — membuka dasbor otomatis', 'acc'); }
   $('boot').classList.add('hide');
   $('ui').classList.add('on');
   targetZ = CFG.camZ; camZCur = 2.35;
@@ -1774,7 +2239,7 @@ function boot(){
     finishBoot();
   }
 
-  log('Boot: MATRIX ORBIT 3D v1.3', 'acc');
+  log('Boot: MATRIX ORBIT 3D v1.4', 'acc');
   log('Menyiapkan kanvas matrix…');
 }
 
