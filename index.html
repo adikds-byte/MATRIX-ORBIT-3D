@@ -653,6 +653,116 @@ body.wxFree #wxDrag{background:linear-gradient(180deg,rgba(34,255,156,.28),rgba(
   #hdDate{max-width:38vw;overflow:hidden;text-overflow:ellipsis}
 }
 </style>
+<style id="v19css">
+/* =====================================================================
+   v1.9 · INTERFACE ala macOS : panel kaca semi transparan + animasi spring
+   Latar di belakang panel TETAP TERLIHAT (tanpa lapisan gelap / blur)
+   ===================================================================== */
+.modal{
+  display:flex!important;align-items:center;justify-content:center;
+  background:transparent!important;
+  -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .24s ease, visibility 0s linear .24s;
+}
+.modal.on{
+  opacity:1;visibility:visible;pointer-events:auto;animation:none!important;
+  transition:opacity .16s ease, visibility 0s;
+}
+.modal .sheet{
+  pointer-events:none;
+  background:linear-gradient(168deg,rgba(34,50,74,.58) 0%,rgba(14,24,40,.66) 46%,rgba(8,15,26,.72) 100%)!important;
+  -webkit-backdrop-filter:blur(24px) saturate(185%);
+  backdrop-filter:blur(24px) saturate(185%);
+  border:1px solid rgba(255,255,255,.17)!important;
+  border-radius:20px!important;
+  box-shadow:0 44px 100px rgba(0,0,0,.55),0 14px 34px rgba(0,0,0,.34),
+             0 1px 0 rgba(255,255,255,.2) inset,0 0 0 1px rgba(0,0,0,.42)!important;
+  transform:scale(.915) translateY(20px);opacity:0;transform-origin:50% 42%;
+  transition:transform .19s cubic-bezier(.4,0,.7,.4), opacity .15s ease;
+  will-change:transform,opacity;animation:none!important;
+}
+.modal.on .sheet{
+  pointer-events:auto;opacity:1;transform:scale(1) translateY(0);
+  transition:transform .48s cubic-bezier(.16,1.24,.32,1), opacity .25s ease;
+}
+/* title bar kaca + tombol tutup bulat (gaya macOS) */
+.modal .sheetHead{
+  background:rgba(20,32,50,.5)!important;
+  -webkit-backdrop-filter:blur(20px) saturate(170%);
+  backdrop-filter:blur(20px) saturate(170%);
+  border-bottom:1px solid rgba(255,255,255,.1)!important;
+  padding:11px 13px!important;gap:9px!important;align-items:center!important;
+}
+.modal .sheetHead h2{flex:1 1 auto!important;font-size:12px!important;letter-spacing:.13em!important;margin:0!important}
+.modal .sheetHead button{
+  width:26px!important;height:26px!important;border-radius:50%!important;font-size:11px!important;
+  background:rgba(255,255,255,.08)!important;border:1px solid rgba(255,255,255,.16)!important;
+  color:#cfe3f5!important;transition:transform .18s,background .18s,color .18s!important;
+}
+.modal .sheetHead button:hover{background:#ff5f57!important;border-color:#ff5f57!important;color:#2a0000!important;transform:scale(1.08)!important}
+.macDots{display:inline-flex;align-items:center;gap:6px;flex:0 0 auto}
+.macDots i{display:block;width:10px;height:10px;border-radius:50%;box-shadow:inset 0 0 0 .5px rgba(0,0,0,.4);transition:filter .2s}
+.macDots i:nth-child(1){background:#ff5f57}
+.macDots i:nth-child(2){background:#febc2e}
+.macDots i:nth-child(3){background:#28c840}
+.sheetHead:hover .macDots i{filter:brightness(1.18)}
+/* permukaan dalam panel: lapisan kaca tipis, bukan blok gelap */
+.sheetBody .helpItem,.sheetBody .credit{
+  background:rgba(255,255,255,.052)!important;border-color:rgba(255,255,255,.1)!important;
+  transition:background .2s,transform .2s,border-color .2s}
+.sheetBody .helpItem:hover{background:rgba(255,255,255,.09)!important;transform:translateY(-1px);
+  border-color:rgba(34,255,156,.4)!important}
+.sheetBody .credit{background:rgba(34,255,156,.07)!important;border-color:rgba(34,255,156,.24)!important}
+/* galeri & daftar aplikasi */
+.modal .galItem{border-radius:14px;transition:transform .2s,box-shadow .2s}
+.modal .galItem:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 12px 26px rgba(0,0,0,.45)}
+/* bubble chat: kaca lembut */
+.modal .msg.ai .bub{background:linear-gradient(160deg,rgba(26,46,68,.72),rgba(10,22,36,.8))!important;
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.08)}
+.modal .msg.me .bub{background:linear-gradient(160deg,rgba(34,255,156,.24),rgba(56,189,248,.22))!important;
+  border:1px solid rgba(34,255,156,.3);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+/* scrollbar tipis ala macOS */
+.modal .sheet::-webkit-scrollbar{width:8px}
+.modal .sheet::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:8px;border:2px solid transparent;background-clip:content-box}
+.modal .sheet::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.3);background-clip:content-box}
+.modal .sheet::-webkit-scrollbar-track{background:transparent}
+/* kartu panel di mobile: masuk dengan spring gaya macOS */
+@media (max-width:960px){
+  #terminalCard.show,#facePanel.show{animation:macCardIn .36s cubic-bezier(.16,1.2,.3,1) both!important;
+    border-radius:18px;border:1px solid rgba(255,255,255,.16);
+    box-shadow:0 34px 80px rgba(0,0,0,.6),0 1px 0 rgba(255,255,255,.16) inset}
+  .card{-webkit-backdrop-filter:blur(22px) saturate(170%);backdrop-filter:blur(22px) saturate(170%)}
+}
+@keyframes macCardIn{
+  from{opacity:0;transform:scale(.93) translateY(-8px)}
+  to{opacity:1;transform:scale(1) translateY(0)}
+}
+/* isi panel muncul berurutan halus */
+.modal.on .sheetBody > *{animation:macItemIn .42s cubic-bezier(.16,1.1,.3,1) both}
+.modal.on .sheetBody > *:nth-child(2){animation-delay:.03s}
+.modal.on .sheetBody > *:nth-child(3){animation-delay:.06s}
+.modal.on .sheetBody > *:nth-child(4){animation-delay:.09s}
+.modal.on .sheetBody > *:nth-child(n+5){animation-delay:.12s}
+@keyframes macItemIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){
+  .modal,.modal .sheet,.modal.on .sheetBody > *,#terminalCard.show,#facePanel.show{animation:none!important;transition:none!important}
+}
+/* dock bergerak seperti Dock macOS */
+#dock .dk{transition:transform .22s cubic-bezier(.16,1.2,.3,1),background .2s,border-color .2s,box-shadow .22s,color .2s}
+#dock .dk:hover{transform:translateY(-5px) scale(1.08)!important;box-shadow:0 12px 26px rgba(56,189,248,.28)!important}
+#dock .dk:active{transform:translateY(-1px) scale(.96)!important;transition:transform .08s ease}
+@media (prefers-reduced-motion:reduce){#dock .dk,#dock .dk:hover,#dock .dk:active{transform:none!important}}
+/* tutup cepat ala macOS */
+.modal.macOut{opacity:0!important;transition:opacity .13s ease}
+.modal.macOut .sheet{transform:scale(.95) translateY(8px)!important;opacity:0!important;
+  transition:transform .14s ease!important,opacity .12s ease!important}
+/* light mode opsional: panel jadi putih susu */
+body.light .modal .sheet{background:linear-gradient(168deg,rgba(255,255,255,.78),rgba(240,246,252,.86))!important;
+  border-color:rgba(0,0,0,.12)!important;color:#0a1a28}
+
+</style>
 </head>
 <body>
 
@@ -664,7 +774,7 @@ body.wxFree #wxDrag{background:linear-gradient(180deg,rgba(34,255,156,.28),rgba(
 <!-- ================= BOOT ================= -->
 <div id="boot">
   <div class="bootInner">
-    <div class="bootTag">NEWBIE AI · REAL-TIME 3D ENGINE · v1.8</div>
+    <div class="bootTag">NEWBIE AI · REAL-TIME 3D ENGINE · v1.9</div>
     <h1>MATRIX <span>ORBIT</span> 3D</h1>
     <p>Chat AI · radar cuaca layar penuh · motivasi &amp; doa Qur'an · HUD orbit atom · slideshow foto</p>
     <div class="bootBar"><i id="bootFill"></i></div>
@@ -677,7 +787,7 @@ body.wxFree #wxDrag{background:linear-gradient(180deg,rgba(34,255,156,.28),rgba(
 <!-- ================= UI ================= -->
 <div id="ui">
   <header id="topbar">
-    <div class="brand"><span class="dot"></span> MATRIX ORBIT 3D <em>v1.8</em></div>
+    <div class="brand"><span class="dot"></span> MATRIX ORBIT 3D <em>v1.9</em></div>
     <div id="hdrStamp" title="Hari, tanggal Masehi & Hijriyah, dan waktu sekarang">
       <span id="hdDay">SENIN</span><i class="hsSep"></i>
       <span id="hdDate">9 November 2026</span><i class="hsSep"></i>
@@ -899,6 +1009,7 @@ body.wxFree #wxDrag{background:linear-gradient(180deg,rgba(34,255,156,.28),rgba(
         <div class="helpItem"><b>Foto berganti otomatis</b>Hologram berganti foto tiap beberapa detik (4/6/10/15/30 dtk) dengan transisi halus. Atur di Setelan.</div>
         <div class="helpItem"><b>Radar layar penuh</b>Ketuk ikon ⛶ di sudut bingkai cuaca. Peta membesar, menu atas dan dock tetap terlihat. Esc atau PERKECIL untuk kembali.</div>
         <div class="helpItem"><b>HUD orbit atom</b>Tiga orbit elektron berputar mengelilingi foto dengan warna berganti. Tombol HUD di dock untuk on/off.</div>
+        <div class="helpItem"><b>Antarmuka macOS</b>Setiap panel (galeri, motivasi, chat, setelan, bantuan, aplikasi) muncul dengan animasi spring dan kaca semi transparan; latar belakang tetap terlihat tanpa lapisan gelap.</div>
         <div class="helpItem"><b>Bingkai 3D</b>Seret bingkai foto atau radar Windy untuk menggeser, klik 2× (atau ikon ⟲) untuk flip 180°, dan gerakkan mouse untuk efek miring 3D. Ikon ⌖ mengembalikan posisi.</div>
         <div class="helpItem"><b>Stempel hari &amp; waktu</b>Header menampilkan hari, tanggal Masehi, tanggal Hijriyah (Umm al-Qura), dan jam berjalan.</div>
         <div class="helpItem"><b>Frame screensaver</b>Saat screensaver aktif muncul frame foto yang berganti otomatis, bisa digeser, dimiringkan mengikuti mouse, dan di-flip 2× klik.</div>
@@ -1108,7 +1219,6 @@ var MYAPPS = [
   ["https://adikds.github.io/jarvis-ai/","JARVIS AI","AI & Agent"],
   ["https://adikds.github.io/-Doa-Digital-Pro/","Doa Digital Pro","Religi & Islami"],
   ["https://adikds.github.io/Al-Quran-Karim/","Al-Quran Karim","Religi & Islami"],
-  ["https://adikds-byte.github.io/MASJID-AL-HUDA/","Masjid Al-Huda","Religi & Islami"],
   ["https://adikds.github.io/ai-meeting-assistant/","AI Meeting Pro","AI & Produktivitas"],
   ["https://adikds.github.io/NEXUS-PAGE-AGENT-VER.1.0/","Nexus Page Agent","AI & Agent"],
   ["https://adikds.github.io/APEX-Foundations-v3.1-Geotechnical-AI-/","Apex Foundations","Geoteknik & Sipil"],
@@ -1882,6 +1992,7 @@ function bindUI(){
   initV16();
   initV17();
   initV18();
+  initV19();
 }
 
 function openModal(id){ $(id).classList.add('on'); }
@@ -3291,6 +3402,60 @@ function initV18(){
 }
 
 
+
+/* =====================================================================
+   v1.9 : INTERFACE ala macOS — titik jendela, buka/tutup beranimasi,
+          panel kaca semi transparan (latar belakang tetap terlihat)
+   ===================================================================== */
+function initV19(){
+  /* ---------- titik jendela macOS di setiap panel ---------- */
+  var heads = document.querySelectorAll('.modal .sheetHead');
+  for(var i = 0; i < heads.length; i++){
+    if(heads[i].querySelector('.macDots')) continue;
+    var d = document.createElement('span');
+    d.className = 'macDots';
+    d.innerHTML = '<i></i><i></i><i></i>';
+    heads[i].insertBefore(d, heads[i].firstChild);
+  }
+
+  /* ---------- buka panel: satu panel aktif, fokus ke dalam ---------- */
+  var baseOpen = openModal;
+  openModal = function(id){
+    var el = $(id); if(!el) return baseOpen(id);
+    var act = document.querySelectorAll('.modal.on');
+    for(var i = 0; i < act.length; i++){ if(act[i] !== el) act[i].classList.remove('on'); }
+    baseOpen(id);
+    var sh = el.querySelector('.sheet');
+    if(sh) sh.scrollTop = 0;
+    setTimeout(function(){
+      var f = el.querySelector('.sheetBody input, .sheetBody select, .sheetBody button:not([data-close])');
+      if(f && window.matchMedia('(min-width:961px)').matches){ try{ f.focus({ preventScroll:true }); }catch(e){} }
+    }, 260);
+  };
+
+  /* ---------- tutup lewat tombol: beri jeda animasi keluar ---------- */
+  document.addEventListener('click', function(e){
+    var t = e.target.closest ? e.target.closest('[data-close]') : null;
+    if(!t) return;
+    var el = document.getElementById(t.getAttribute('data-close'));
+    if(!el) return;
+    el.classList.add('macOut');
+    setTimeout(function(){ el.classList.remove('macOut'); }, 240);
+  }, true);
+
+  /* ---------- animasi druplet saat tombol titik di-klik ---------- */
+  document.addEventListener('click', function(e){
+    var dot = e.target.closest ? e.target.closest('.macDots i') : null;
+    if(!dot) return;
+    var head = dot.closest('.sheetHead'), btn = head ? head.querySelector('button[data-close]') : null;
+    dot.style.transform = 'scale(.72)';
+    setTimeout(function(){ dot.style.transform = ''; }, 140);
+    if(btn && dot === head.querySelector('.macDots i:last-child')) btn.click();
+  }, true);
+
+  log('v1.9: antarmuka gaya macOS (panel kaca semi transparan, latar tetap terlihat)', 'acc');
+}
+
 /* ---------------- START ---------------- */
 var entered = false;
 function startApp(auto){
@@ -3343,7 +3508,7 @@ function boot(){
     finishBoot();
   }
 
-  log('Boot: MATRIX ORBIT 3D v1.8', 'acc');
+  log('Boot: MATRIX ORBIT 3D v1.9', 'acc');
   log('Menyiapkan kanvas matrix…');
 }
 
