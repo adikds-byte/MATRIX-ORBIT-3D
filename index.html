@@ -559,6 +559,100 @@ body.ssOpen #scan{opacity:.35}
   .dk{height:42px;width:46px}
 }
 </style>
+<style id="v18css">
+/* ================= v1.8 ================= */
+#topbar{flex-wrap:wrap}
+#hdrStamp{display:flex;align-items:center;gap:9px;flex:1 1 auto;justify-content:center;min-width:0;
+  padding:7px 14px;border-radius:11px;font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;color:#a9c6e2;
+  background:linear-gradient(180deg,rgba(10,24,38,.88),rgba(6,15,26,.92));border:1px solid rgba(56,189,248,.26);
+  box-shadow:0 8px 22px rgba(0,0,0,.30),0 0 0 1px rgba(34,255,156,.05) inset;
+  overflow:hidden;white-space:nowrap;text-align:center}
+#hdrStamp .hsSep{width:1px;height:12px;background:rgba(120,180,220,.3);flex:0 0 auto}
+#hdDay{color:#8bffc9;font-weight:700;letter-spacing:.14em}
+#hdDate{color:#dceaf7;font-weight:600}
+#hdHijri{color:#ffdf9b;font-weight:600}
+#hdClock{color:#eafff5;font-weight:700;letter-spacing:.1em;font-variant-numeric:tabular-nums;
+  text-shadow:0 0 12px rgba(34,255,156,.5)}
+#hdTz{color:#7f9cb8;font-size:9px}
+#btnMotifHdr{display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border-radius:9px;cursor:pointer;
+  font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.1em;color:#04140e;
+  background:linear-gradient(135deg,#22ff9c,#38bdf8);border:1px solid rgba(34,255,156,.65);
+  box-shadow:0 0 18px rgba(34,255,156,.32);transition:.2s;white-space:nowrap}
+#btnMotifHdr:hover{transform:translateY(-1px);box-shadow:0 0 26px rgba(34,255,156,.55)}
+#btnMotifHdr svg{width:13px;height:13px;fill:currentColor}
+
+/* ---- bingkai 3D: geser · flip · ikut mouse ---- */
+#faceWrap{transform:translate3d(0,0,0);will-change:transform;touch-action:none}
+#faceDisc{transition:none!important;will-change:transform;cursor:grab;touch-action:none}
+#faceDisc.dragging{cursor:grabbing}
+#faceGlare{position:absolute;inset:-12%;z-index:4;pointer-events:none;border-radius:inherit;opacity:0;
+  background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.46),rgba(180,240,255,.16) 34%,rgba(255,255,255,0) 66%);
+  mix-blend-mode:screen;transition:opacity .32s}
+#faceDisc.tilt #faceGlare{opacity:.8}
+#faceSheen{position:absolute;inset:0;z-index:5;pointer-events:none;opacity:0;
+  background:linear-gradient(105deg,transparent 26%,rgba(255,255,255,.9) 48%,transparent 68%);mix-blend-mode:screen}
+#faceDisc.flipping #faceSheen{animation:v18Sheen .62s ease}
+@keyframes v18Sheen{0%{opacity:0;transform:translateX(-72%)}40%{opacity:.92}100%{opacity:0;transform:translateX(72%)}}
+#face3dHint{font-family:var(--mono);font-size:8.5px;letter-spacing:.16em;color:#5f7f9c;text-align:center;
+  margin-top:2px;pointer-events:none;user-select:none}
+@media (max-width:640px){ #face3dHint{font-size:7.4px;letter-spacing:.1em} }
+#faceTools{position:absolute;right:-11px;bottom:-9px;z-index:9;display:flex;flex-direction:column;gap:5px}
+#faceTools button{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;cursor:pointer;
+  background:rgba(7,18,30,.92);border:1px solid rgba(56,189,248,.42);color:#9fd8ff;font-size:13px;line-height:1;
+  backdrop-filter:blur(8px);transition:.18s}
+#faceTools button:hover{color:#03130f;background:#22ff9c;border-color:#22ff9c;transform:scale(1.08)}
+#faceTools button.on{color:#03130f;background:#38bdf8;border-color:#38bdf8}
+#wxExpand{top:34px!important}
+#wxDrag{position:absolute;left:0;right:0;top:0;height:26px;z-index:7;display:none;align-items:center;gap:8px;
+  padding:0 7px;cursor:grab;background:linear-gradient(180deg,rgba(4,14,24,.94),rgba(4,14,24,.30));
+  border-bottom:1px solid rgba(56,189,248,.22);font-family:var(--mono);font-size:8px;letter-spacing:.14em;color:#8fc7e8;
+  touch-action:none}
+#wxFrame.on #wxDrag{display:flex}
+#wxDrag.grabbing{cursor:grabbing}
+#wxDrag .g{margin-right:auto;pointer-events:none;text-shadow:0 1px 4px #000}
+#wxDrag button{width:22px;height:20px;border-radius:6px;cursor:pointer;display:grid;place-items:center;
+  color:#9fd8ff;background:rgba(56,189,248,.16);border:1px solid rgba(56,189,248,.38);font-size:9px}
+#wxDrag button.on{background:#22ff9c;color:#03130f;border-color:#22ff9c}
+body.wxFree #wxFrame iframe{pointer-events:none}
+body.wxFree #wxDrag{background:linear-gradient(180deg,rgba(34,255,156,.28),rgba(4,14,24,.4));color:#d9fff0}
+
+/* ---- frame foto di screensaver ---- */
+#ssFrame{position:absolute;right:4vw;top:50%;margin-top:0;transform:translate3d(0,-50%,0);z-index:5;
+  width:clamp(148px,17vw,248px);perspective:1000px;touch-action:none;cursor:grab}
+#ssFrame.dragging{cursor:grabbing}
+#ssFrameIn{position:relative;width:100%;transform-style:preserve-3d;will-change:transform;
+  border-radius:20px;overflow:hidden;border:1px solid rgba(56,189,248,.5);
+  box-shadow:0 26px 64px rgba(0,0,0,.62),0 0 0 6px rgba(6,16,28,.55),0 0 34px rgba(34,255,156,.22)}
+#ssPhoto{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;filter:saturate(1.06) contrast(1.05)}
+#ssFrame .ssGlare{position:absolute;inset:-12%;pointer-events:none;mix-blend-mode:screen;opacity:.55;
+  background:radial-gradient(circle at var(--gx,50%) var(--gy,30%),rgba(255,255,255,.36),transparent 62%)}
+#ssFrameCap{position:absolute;left:0;right:0;bottom:0;padding:22px 10px 9px;text-align:center;
+  font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;color:#d6ecff;
+  background:linear-gradient(180deg,transparent,rgba(2,8,14,.88))}
+#ssFlipBtn{position:absolute;right:-10px;top:-10px;width:28px;height:28px;border-radius:50%;cursor:pointer;z-index:6;
+  display:grid;place-items:center;font-size:13px;color:#9fd8ff;background:rgba(6,18,30,.94);
+  border:1px solid rgba(56,189,248,.45);box-shadow:0 6px 16px rgba(0,0,0,.55)}
+#ssFlipBtn:hover{background:#22ff9c;color:#03130f}
+#ssHijri{font-family:var(--mono);font-size:clamp(10px,2vw,13px);letter-spacing:.16em;color:#e8c46a;text-transform:uppercase}
+@media (max-width:1180px){
+  #hdrStamp{order:3;flex:1 1 100%;width:100%;justify-content:center}
+}
+@media (max-width:960px){
+  #hdrStamp{order:3;width:100%;font-size:9.4px;gap:7px;padding:6px 10px}
+  #hdTz{display:none}
+  #btnMotifHdr span{display:none}
+  #btnMotifHdr{padding:8px 10px}
+}
+@media (max-width:720px){
+  #ssFrame{right:14px;top:auto;bottom:64px;margin-top:0;transform:none;width:96px}
+  #ssFrameCap{font-size:6.6px;padding:14px 4px 5px}
+  #ssFlipBtn{width:22px;height:22px;font-size:11px;right:-7px;top:-7px}
+}
+@media (max-width:560px){
+  #hdrStamp{font-size:8.6px;gap:5px}
+  #hdDate{max-width:38vw;overflow:hidden;text-overflow:ellipsis}
+}
+</style>
 </head>
 <body>
 
@@ -570,7 +664,7 @@ body.ssOpen #scan{opacity:.35}
 <!-- ================= BOOT ================= -->
 <div id="boot">
   <div class="bootInner">
-    <div class="bootTag">NEWBIE AI · REAL-TIME 3D ENGINE · v1.7</div>
+    <div class="bootTag">NEWBIE AI · REAL-TIME 3D ENGINE · v1.8</div>
     <h1>MATRIX <span>ORBIT</span> 3D</h1>
     <p>Chat AI · radar cuaca layar penuh · motivasi &amp; doa Qur'an · HUD orbit atom · slideshow foto</p>
     <div class="bootBar"><i id="bootFill"></i></div>
@@ -583,7 +677,13 @@ body.ssOpen #scan{opacity:.35}
 <!-- ================= UI ================= -->
 <div id="ui">
   <header id="topbar">
-    <div class="brand"><span class="dot"></span> MATRIX ORBIT 3D <em>v1.7</em></div>
+    <div class="brand"><span class="dot"></span> MATRIX ORBIT 3D <em>v1.8</em></div>
+    <div id="hdrStamp" title="Hari, tanggal Masehi & Hijriyah, dan waktu sekarang">
+      <span id="hdDay">SENIN</span><i class="hsSep"></i>
+      <span id="hdDate">9 November 2026</span><i class="hsSep"></i>
+      <span id="hdHijri">29 Jumadil Awal 1448 H</span><i class="hsSep"></i>
+      <span id="hdClock">00:00:00</span><span id="hdTz">WIB</span>
+    </div>
     <div class="chips">
       <span class="chip" id="chipFps">FPS --</span>
       <span class="chip ok" id="chipMatrix">MATRIX ONLINE</span>
@@ -594,6 +694,7 @@ body.ssOpen #scan{opacity:.35}
         <button id="zIn" title="Zoom in">+</button>
         <button id="zReset" title="Reset zoom">⟲</button>
       </div>
+      <button id="btnMotifHdr" title="Tampilkan motivasi, kata bijak &amp; doa (M)"><svg viewBox="0 0 24 24"><path d="M12 2l2.2 6.1L20.5 10l-5 3.5 1.7 6.3L12 16.3 6.8 19.8 8.5 13.5l-5-3.5 6.3-1.9z"/></svg><span>MOTIVASI</span></button>
       <span class="chip" id="chipPro">✦ PRO</span>
       <button class="iconBtn" id="btnReset" title="Reset setelan ke bawaan">↺</button>
       <button class="iconBtn" id="btnFs" title="Layar penuh">⛶</button>
@@ -610,6 +711,10 @@ body.ssOpen #scan{opacity:.35}
       <button id="faceShow" title="Tampilkan lagi hologram wajah">👁 TAMPILKAN FOTO</button>
       <div id="faceWrap">
         <button id="faceX" title="Sembunyikan hologram">✕</button>
+        <div id="faceTools">
+          <button id="f3Flip" title="Flip / putar bingkai 180° (klik 2× pada bingkai)">⟲</button>
+          <button id="f3Reset" title="Kembalikan posisi &amp; putaran bingkai">⌖</button>
+        </div>
         <div class="ringA"></div>
         <div class="ringB"></div>
         <div class="bracket tl"></div><div class="bracket tr"></div>
@@ -619,7 +724,13 @@ body.ssOpen #scan{opacity:.35}
           <div class="grid"></div>
           <div class="tint"></div>
           <div class="scanline"></div>
+          <div id="faceGlare"></div>
+          <div id="faceSheen"></div>
           <div id="wxFrame">
+            <div id="wxDrag" title="Seret untuk menggeser bingkai radar">
+              <span class="g">⋮⋮ GESER · 2× KLIK = FLIP</span>
+              <button id="wxLock" title="Bebaskan seluruh peta untuk digeser">🔓</button>
+            </div>
             <iframe id="wxIframe" title="Radar cuaca Windy" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
             <div id="wxFallback">Radar cuaca butuh koneksi internet.<br>Buka di tab baru lewat tombol CUACA.</div>
           </div>
@@ -635,6 +746,7 @@ body.ssOpen #scan{opacity:.35}
           </div>
         </div>
       </div>
+      <div id="face3dHint">SERET BINGKAI = GESER · 2× KLIK / ⟲ = FLIP 3D · IKUTI MOUSE</div>
       <div id="faceTags">
         <span class="tag ok" id="tagState">SUBJEK TERDETEKSI</span>
         <span class="tag" id="tagName">FOTO CONTOH</span>
@@ -787,6 +899,10 @@ body.ssOpen #scan{opacity:.35}
         <div class="helpItem"><b>Foto berganti otomatis</b>Hologram berganti foto tiap beberapa detik (4/6/10/15/30 dtk) dengan transisi halus. Atur di Setelan.</div>
         <div class="helpItem"><b>Radar layar penuh</b>Ketuk ikon ⛶ di sudut bingkai cuaca. Peta membesar, menu atas dan dock tetap terlihat. Esc atau PERKECIL untuk kembali.</div>
         <div class="helpItem"><b>HUD orbit atom</b>Tiga orbit elektron berputar mengelilingi foto dengan warna berganti. Tombol HUD di dock untuk on/off.</div>
+        <div class="helpItem"><b>Bingkai 3D</b>Seret bingkai foto atau radar Windy untuk menggeser, klik 2× (atau ikon ⟲) untuk flip 180°, dan gerakkan mouse untuk efek miring 3D. Ikon ⌖ mengembalikan posisi.</div>
+        <div class="helpItem"><b>Stempel hari &amp; waktu</b>Header menampilkan hari, tanggal Masehi, tanggal Hijriyah (Umm al-Qura), dan jam berjalan.</div>
+        <div class="helpItem"><b>Frame screensaver</b>Saat screensaver aktif muncul frame foto yang berganti otomatis, bisa digeser, dimiringkan mengikuti mouse, dan di-flip 2× klik.</div>
+        <div class="helpItem"><b>Peta cuaca bebas geser</b>Ikon 🔓 di bar atas radar membuat seluruh peta bisa digeser bersama bingkai; klik 🔒 untuk mengaktifkan peta kembali.</div>
         <div class="helpItem"><b>Proteksi anti-hacker</b>Ctrl+U, Ctrl+S, Ctrl+P, F12, Ctrl+Shift+I/J/C, dan klik kanan diblokir dengan animasi peringatan.</div>
         <div class="helpItem"><b>Chat AI</b>Tanya apa saja: definisi, cuaca, hitungan, bantuan. Jawaban detail dengan tautan Wikipedia, Google, dan AI lain.</div>
         <div class="helpItem"><b>Radar cuaca Windy</b>Tombol CUACA mengganti bingkai foto dengan peta radar hujan real-time.</div>
@@ -932,12 +1048,21 @@ body.ssOpen #scan{opacity:.35}
     <div id="ssCat">KATA BIJAK</div>
     <div id="ssClock">00:00:00</div>
     <div id="ssDate">—</div>
+    <div id="ssHijri">—</div>
   </div>
   <div id="ssBot">
     <div id="ssQuote">…</div>
     <div id="ssAuthor">—</div>
   </div>
-  <div id="ssHint">SERET UNTUK MEMUTAR BUMI · SCROLL / PINCH UNTUK ZOOM · KLIK UNTUK KEMBALI</div>
+  <div id="ssFrame" title="Seret untuk menggeser · 2× klik untuk flip 3D">
+    <div id="ssFrameIn">
+      <img id="ssPhoto" alt="Foto screensaver">
+      <div class="ssGlare"></div>
+      <div id="ssFrameCap">FOTO</div>
+    </div>
+    <button id="ssFlipBtn" title="Flip 3D foto">⟲</button>
+  </div>
+  <div id="ssHint">SERET BUMI UNTUK MEMUTAR · SERET FOTO UNTUK MENGGESER · 2× KLIK FOTO = FLIP · KLIK LAIN = KEMBALI</div>
 </div>
 
 <div id="dropHint">
@@ -1456,14 +1581,7 @@ function loadImageFile(file){
   if(window.innerWidth <= 960) $('facePanel').classList.remove('show');
 }
 
-/* parallax wajah */
-if(window.matchMedia && window.matchMedia('(pointer:fine)').matches){
-  document.addEventListener('mousemove', function(e){
-    var x = (e.clientX / window.innerWidth - 0.5) * 26;
-    var y = (e.clientY / window.innerHeight - 0.5) * 26;
-    faceDisc.style.transform = 'rotateX(' + (-y).toFixed(2) + 'deg) rotateY(' + x.toFixed(2) + 'deg) translateZ(6px)';
-  });
-}
+/* parallax wajah: diganti mesin 3D v1.8 (geser · flip · ikut mouse) */
 
 /* ---------------- TICKER ---------------- */
 function layoutTicker(){
@@ -1752,7 +1870,7 @@ function bindUI(){
     }
   });
   // double tap face to upload
-  faceDisc.addEventListener('dblclick', function(){ $('fileInput').click(); });
+  faceDisc.addEventListener('dblclick', function(e){ if(e.altKey){ $('fileInput').click(); } });
 
   window.addEventListener('resize', onResize);
   window.addEventListener('orientationchange', function(){ setTimeout(onResize, 250); });
@@ -1762,6 +1880,7 @@ function bindUI(){
   initV15();
   initV16();
   initV17();
+  initV18();
 }
 
 function openModal(id){ $(id).classList.add('on'); }
@@ -2814,6 +2933,363 @@ function initV17(){
   log('MOTIVASI siap: ' + MOTIF.length + ' kartu (doa Qur\'an, motivasi, kata bijak)', 'acc');
 }
 
+/* =====================================================================
+   v1.8 : STEMPEL HARI/WAKTU (MASEHI + HIJRIYAH) · TOMBOL MOTIVASI ·
+          BINGKAI 3D (GESER · FLIP · IKUT MOUSE) · FRAME FOTO SCREENSAVER
+   ===================================================================== */
+function initV18(){
+  var DAYS = ['Ahad','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+  var MONS = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+  var HJM  = ['Muharram','Safar','Rabiul Awal','Rabiul Akhir','Jumadil Awal','Jumadil Akhir','Rajab',
+              'Sya\u2019ban','Ramadhan','Syawal','Dzulqa\u2019dah','Dzulhijjah'];
+  function p2(n){ return (n < 10 ? '0' : '') + n; }
+
+  /* ---------- 1. HARI · TANGGAL MASEHI & HIJRIYAH · WAKTU ---------- */
+  function hijriArith(d){
+    var day = d.getDate(), mon = d.getMonth() + 1, yr = d.getFullYear(), m = mon, y = yr;
+    if(m < 3){ y -= 1; m += 12; }
+    var a = Math.floor(y / 100), b = 2 - a + Math.floor(a / 4);
+    var jd = Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + day + b - 1524;
+    var l = jd - 1948440 + 10632;
+    var n = Math.floor((l - 1) / 10631);
+    l = l - 10631 * n + 354;
+    var j = Math.floor((10985 - l) / 5316) * Math.floor((50 * l) / 17719) +
+            Math.floor(l / 5670) * Math.floor((43 * l) / 15238);
+    l = l - Math.floor((30 - j) / 15) * Math.floor((17719 * j) / 50) -
+        Math.floor(j / 16) * Math.floor((15238 * j) / 43) + 29;
+    var hm = Math.floor((24 * l) / 709);
+    var hd = l - Math.floor((709 * hm) / 24);
+    var hy = 30 * n + j - 30;
+    return { d: hd, m: hm, y: hy };
+  }
+  function hijriOf(d){
+    try{
+      var f = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura',
+                { day:'numeric', month:'numeric', year:'numeric' });
+      var parts = f.formatToParts(d), o = {};
+      for(var i = 0; i < parts.length; i++){ o[parts[i].type] = parts[i].value; }
+      var dd = parseInt(o.day, 10), mm = parseInt(o.month, 10),
+          yy = parseInt(String(o.year).replace(/[^0-9]/g, ''), 10);
+      if(dd > 0 && mm >= 1 && mm <= 12 && yy > 1300){ return { d: dd, m: mm, y: yy }; }
+    }catch(e){}
+    return hijriArith(d);
+  }
+  function tzLabel(){
+    var off = -new Date().getTimezoneOffset();
+    if(off === 420) return 'WIB';
+    if(off === 480) return 'WITA';
+    if(off === 540) return 'WIT';
+    var sg = off < 0 ? '-' : '+', ab = Math.abs(off);
+    return 'UTC' + sg + p2(Math.floor(ab / 60)) + ':' + p2(ab % 60);
+  }
+  var HJCACHE = { key:'', txt:'' };
+  function stampTick(){
+    var d = new Date();
+    var hj = hijriOf(d);
+    var k = d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate();
+    if(HJCACHE.key !== k){
+      HJCACHE.key = k;
+      HJCACHE.txt = hj.d + ' ' + (HJM[hj.m - 1] || '-') + ' ' + hj.y + ' H';
+    }
+    var t = p2(d.getHours()) + ':' + p2(d.getMinutes()) + ':' + p2(d.getSeconds());
+    var e;
+    if((e = $('hdDay')))   e.textContent = DAYS[d.getDay()].toUpperCase();
+    if((e = $('hdDate')))  e.textContent = d.getDate() + ' ' + MONS[d.getMonth()] + ' ' + d.getFullYear();
+    if((e = $('hdHijri'))) e.textContent = HJCACHE.txt;
+    if((e = $('hdClock'))) e.textContent = window.innerWidth <= 560 ? t.slice(0, 5) : t;
+    if((e = $('hdTz')))    e.textContent = tzLabel();
+    if((e = $('ssHijri'))) e.textContent = HJCACHE.txt;
+  }
+  stampTick();
+  setInterval(stampTick, 1000);
+  window.addEventListener('resize', stampTick);
+
+  /* ---------- 2. TOMBOL MOTIVASI DI DASBOR ---------- */
+  var bm = $('btnMotifHdr');
+  if(bm){
+    bm.addEventListener('click', function(){
+      if(typeof window.mxMotifOpen === 'function') window.mxMotifOpen();
+    });
+  }
+  document.addEventListener('keydown', function(e){
+    var tag = (e.target && e.target.tagName || '').toLowerCase();
+    if(tag === 'input' || tag === 'textarea' || tag === 'select' || e.ctrlKey || e.metaKey || e.altKey) return;
+    if((e.key === 'f' || e.key === 'F') && window.mxFlip3d){
+      if(document.querySelector('.modal.on') || $('ss').classList.contains('on')) return;
+      e.preventDefault(); window.mxFlip3d(1); return;
+    }
+    if(e.key === 'm' || e.key === 'M'){
+      if(document.querySelector('.modal.on')) return;
+      if(typeof window.mxMotifOpen === 'function'){ e.preventDefault(); window.mxMotifOpen(); }
+    }
+  });
+
+  /* ---------- 3. MESIN 3D (DIPAKAI BINGKAI & FRAME SCREENSAVER) ---------- */
+  function newState(clampFn){
+    return { tx:0, ty:0, vx:0, vy:0, rx:0, ry:0, crx:0, cry:0, flip:0, cflip:0,
+             gx:50, gy:46, drag:false, id:null, x0:0, y0:0, tx0:0, ty0:0,
+             lastX:0, lastY:0, lastT:0, moved:0, clamp:clampFn };
+  }
+  function bindDrag(el, st, clsEl){
+    el.addEventListener('pointerdown', function(e){
+      if(e.target && e.target.tagName === 'BUTTON') return;
+      if(e.pointerType === 'mouse' && e.button !== 0) return;
+      st.drag = true; st.id = e.pointerId;
+      st.x0 = e.clientX; st.y0 = e.clientY; st.tx0 = st.tx; st.ty0 = st.ty;
+      st.lastX = e.clientX; st.lastY = e.clientY; st.lastT = Date.now();
+      st.moved = 0; st.vx = 0; st.vy = 0;
+      if(clsEl) clsEl.classList.add('dragging');
+      try{ el.setPointerCapture(e.pointerId); }catch(_){}
+      e.preventDefault();
+    });
+    el.addEventListener('pointermove', function(e){
+      if(!st.drag || e.pointerId !== st.id) return;
+      st.tx = st.tx0 + (e.clientX - st.x0);
+      st.ty = st.ty0 + (e.clientY - st.y0);
+      st.moved += Math.abs(e.clientX - st.lastX) + Math.abs(e.clientY - st.lastY);
+      var dt = Math.max(8, Date.now() - st.lastT);
+      st.vx = Math.max(-18, Math.min(18, (e.clientX - st.lastX) / dt * 9));
+      st.vy = Math.max(-18, Math.min(18, (e.clientY - st.lastY) / dt * 9));
+      st.lastX = e.clientX; st.lastY = e.clientY; st.lastT = Date.now();
+      if(st.clamp) st.clamp();
+      e.preventDefault();
+    });
+    function end(){
+      if(!st.drag) return;
+      st.drag = false;
+      if(clsEl) clsEl.classList.remove('dragging');
+      if(st.moved < 6){ st.vx = 0; st.vy = 0; }
+    }
+    el.addEventListener('pointerup', end);
+    el.addEventListener('pointercancel', end);
+  }
+  function stepState(st, discEl, wrapEl, glareEl, wrapTpl, f){
+    f = Math.max(0.35, Math.min(4, f || 1));           /* setara jumlah frame 60fps */
+    var kT = 1 - Math.pow(0.88, f);
+    var kF = 1 - Math.pow(0.86, f);
+    var kD = Math.pow(0.90, f);
+    if(!st.drag){
+      st.tx += st.vx * f; st.ty += st.vy * f;
+      st.vx *= kD; st.vy *= kD;
+      if(Math.abs(st.vx) < 0.04) st.vx = 0;
+      if(Math.abs(st.vy) < 0.04) st.vy = 0;
+      if(st.clamp) st.clamp();
+    }
+    st.crx += (st.rx - st.crx) * kT;
+    st.cry += (st.ry - st.cry) * kT;
+    st.cflip += (st.flip - st.cflip) * kF;
+    var pulse = Math.min(0.1, Math.abs(st.flip - st.cflip) / 1700);
+    if(discEl){
+      discEl.style.transform = 'rotateX(' + st.crx.toFixed(2) + 'deg) rotateY(' +
+        (st.cflip + st.cry).toFixed(2) + 'deg) translateZ(12px) scale(' + (1 - pulse).toFixed(3) + ')';
+    }
+    if(wrapEl){
+      wrapEl.style.transform = wrapTpl
+        ? wrapTpl(st.tx, st.ty)
+        : 'translate3d(' + st.tx.toFixed(1) + 'px,' + st.ty.toFixed(1) + 'px,0)';
+    }
+    if(glareEl){
+      glareEl.style.setProperty('--gx', st.gx.toFixed(1) + '%');
+      glareEl.style.setProperty('--gy', st.gy.toFixed(1) + '%');
+    }
+  }
+  function doFlip(st, el, label){
+    st.flip += 180;
+    if(el){
+      el.classList.remove('flipping');
+      void el.offsetWidth;
+      el.classList.add('flipping');
+      setTimeout(function(){ el.classList.remove('flipping'); }, 660);
+    }
+    if(typeof toast === 'function') toast(label || 'Bingkai diputar 3D 180°');
+    log('Flip 3D · ' + Math.round(Math.abs(st.flip) / 180) + '× putaran', 'acc');
+  }
+
+  /* ---------- 4. BINGKAI DASBOR (FOTO & RADAR WINDY) ---------- */
+  var wrap = $('faceWrap'), disc = $('faceDisc'), glare = $('faceGlare');
+  var FS = newState(function(){
+    var mx = Math.max(70, window.innerWidth * 0.40), my = Math.max(56, window.innerHeight * 0.32);
+    FS.tx = Math.max(-mx, Math.min(mx, FS.tx));
+    FS.ty = Math.max(-my, Math.min(my, FS.ty));
+  });
+  if(disc){
+    bindDrag(disc, FS, disc);
+    disc.addEventListener('dblclick', function(e){
+      if(FS.moved > 8) return;
+      if(e.altKey) return;              /* Alt+2x klik = unggah foto (cadangan) */
+      doFlip(FS, disc, null);
+    });
+  }
+  var wxd = $('wxDrag');
+  if(wxd){ bindDrag(wxd, FS, wxd); }
+  if(wxd){
+    wxd.addEventListener('dblclick', function(e){
+      if(e.target && e.target.tagName === 'BUTTON') return;
+      doFlip(FS, disc, 'Radar cuaca diputar 3D 180°');
+    });
+  }
+  var wxl = $('wxLock');
+  if(wxl){
+    wxl.addEventListener('click', function(e){
+      e.stopPropagation();
+      var on = document.body.classList.toggle('wxFree');
+      wxl.classList.toggle('on', on);
+      wxl.textContent = on ? '🔒' : '🔓';
+      toast(on ? 'Peta bebas digeser penuh · klik peta nonaktif' : 'Peta radar aktif kembali');
+    });
+  }
+  var f3f = $('f3Flip');
+  if(f3f){ f3f.addEventListener('click', function(e){ e.stopPropagation(); doFlip(FS, disc, null); }); }
+  var f3r = $('f3Reset');
+  if(f3r){
+    f3r.addEventListener('click', function(){
+      FS.tx = 0; FS.ty = 0; FS.vx = 0; FS.vy = 0;
+      FS.flip = 0; FS.rx = 0; FS.ry = 0;
+      if(document.body.classList.contains('wxFree')){
+        document.body.classList.remove('wxFree');
+        if(wxl){ wxl.classList.remove('on'); wxl.textContent = '🔓'; }
+      }
+      toast('Posisi & putaran bingkai direset');
+    });
+  }
+  window.mxFlip3d = function(dir){ FS.flip += (dir || 1) * 180; doFlip(FS, disc, null); };
+  document.addEventListener('pointermove', function(e){
+    if(!wrap || !disc) return;
+    var r = wrap.getBoundingClientRect();
+    if(!r.width) return;
+    var nx = Math.max(-1.8, Math.min(1.8, (e.clientX - (r.left + r.width / 2)) / (window.innerWidth * 0.42)));
+    var ny = Math.max(-1.8, Math.min(1.8, (e.clientY - (r.top + r.height / 2)) / (window.innerHeight * 0.42)));
+    FS.ry = nx * 15; FS.rx = -ny * 12;
+    var dr = disc.getBoundingClientRect();
+    if(dr.width){
+      FS.gx = (e.clientX - dr.left) / dr.width * 100;
+      FS.gy = (e.clientY - dr.top) / dr.height * 100;
+    }
+    disc.classList.add('tilt');
+  }, { passive:true });
+  document.addEventListener('pointerleave', function(){
+    FS.rx = 0; FS.ry = 0;
+    if(disc) disc.classList.remove('tilt');
+  });
+
+  /* ---------- 5. FRAME FOTO DI SCREENSAVER ---------- */
+  var ssF = $('ssFrame'), ssIn = $('ssFrameIn'), ssImg = $('ssPhoto'),
+      ssCap = $('ssFrameCap'), ssGlare = ssF ? ssF.querySelector('.ssGlare') : null,
+      ssFlip = $('ssFlipBtn');
+  function ssWrapTpl(tx, ty){
+    var m = window.innerWidth <= 720;
+    return m
+      ? 'translate3d(' + tx.toFixed(1) + 'px,' + ty.toFixed(1) + 'px,0)'
+      : 'translate3d(' + tx.toFixed(1) + 'px,calc(-50% + ' + ty.toFixed(1) + 'px),0)';
+  }
+  var QS = newState(null);
+  QS.bounds = null;
+  QS.clamp = function(){
+    var b = QS.bounds; if(!b) return;
+    var pad = 8;
+    var minX = pad - b.left, maxX = window.innerWidth - pad - b.right;
+    var minY = pad - b.top,  maxY = window.innerHeight - pad - b.bottom;
+    QS.tx = Math.max(minX, Math.min(maxX, QS.tx));
+    QS.ty = Math.max(minY, Math.min(maxY, QS.ty));
+  };
+  function ssMeasure(){
+    if(!ssF) return;
+    var sx = QS.tx, sy = QS.ty;
+    QS.tx = 0; QS.ty = 0;
+    ssF.style.transform = ssWrapTpl(0, 0);
+    var r = ssF.getBoundingClientRect();
+    QS.bounds = { left:r.left, top:r.top, right:r.right, bottom:r.bottom, w:r.width, h:r.height };
+    QS.tx = sx; QS.ty = sy;
+  }
+  var ssIdx = 0, ssPhotoT = null;
+  function ssPhotoNext(){
+    if(!ssImg || !GALLERY || !GALLERY.length) return;
+    var g = GALLERY[ssIdx % GALLERY.length];
+    ssIdx++;
+    if(g && g.s){ ssImg.src = g.s; }
+    if(ssCap) ssCap.textContent = String((g && g.n) || 'FOTO').toUpperCase();
+  }
+  if(ssF){
+    bindDrag(ssF, QS, ssF);
+    /* jangan sampai seret / klik di frame menutup screensaver atau memutar bumi */
+    ['pointerdown','pointerup','pointermove','click','dblclick'].forEach(function(ev){
+      ssF.addEventListener(ev, function(e){ e.stopPropagation(); }, false);
+    });
+    ssF.addEventListener('dblclick', function(){ doFlip(QS, ssIn, 'Foto screensaver diputar 3D'); });
+    document.addEventListener('pointermove', function(e){
+      if(!$('ss').classList.contains('on')) return;
+      var r = document.getElementById('ssFrameIn').getBoundingClientRect();
+      if(!r.width) return;
+      QS.gx = (e.clientX - r.left) / r.width * 100;
+      QS.gy = (e.clientY - r.top) / r.height * 100;
+    }, { passive:true });
+  }
+  if(ssFlip){
+    ssFlip.addEventListener('click', function(e){
+      e.stopPropagation();
+      doFlip(QS, ssIn, 'Foto screensaver diputar 3D');
+    });
+  }
+  document.addEventListener('pointermove', function(e){
+    if(!ssF || !$('ss').classList.contains('on')) return;
+    var r = ssF.getBoundingClientRect();
+    if(!r.width) return;
+    var nx = Math.max(-1.8, Math.min(1.8, (e.clientX - (r.left + r.width / 2)) / (window.innerWidth * 0.45)));
+    var ny = Math.max(-1.8, Math.min(1.8, (e.clientY - (r.top + r.height / 2)) / (window.innerHeight * 0.45)));
+    QS.ry = nx * 18; QS.rx = -ny * 14;
+  }, { passive:true });
+
+  /* buka/tutup screensaver: foto bergilir + ukur batas geser */
+  var ssOpenBase = ssOpen, ssCloseBase = ssClose;
+  ssOpen = function(){
+    ssOpenBase();
+    ssIdx = 0; ssPhotoNext();
+    clearInterval(ssPhotoT);
+    ssPhotoT = setInterval(ssPhotoNext, 5000);
+    setTimeout(ssMeasure, 40);
+  };
+  ssClose = function(){
+    ssCloseBase();
+    clearInterval(ssPhotoT); ssPhotoT = null;
+    QS.tx = 0; QS.ty = 0; QS.vx = 0; QS.vy = 0; QS.flip = 0; QS.rx = 0; QS.ry = 0;
+  };
+  window.addEventListener('resize', function(){
+    if($('ss').classList.contains('on')) setTimeout(ssMeasure, 120);
+  });
+
+  /* ---------- 6. LOOP ANIMASI ---------- */
+  var lastFrameT = 0;
+  function loop(now){
+    var f = 1;
+    if(lastFrameT){ f = (now - lastFrameT) / 16.667; }
+    lastFrameT = now;
+    if(!document.hidden){
+      stepState(FS, disc, wrap, glare, null, f);
+      if($('ss').classList.contains('on')){ stepState(QS, ssIn, ssF, ssGlare, ssWrapTpl, f); }
+    }
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+
+  /* ---------- 7. EKSPOR PNG: netralkan dulu transform 3D ---------- */
+  function neutral3d(){
+    FS.tx = 0; FS.ty = 0; FS.flip = 0; FS.cflip = 0;
+    FS.rx = 0; FS.ry = 0; FS.crx = 0; FS.cry = 0;
+    if(disc){ disc.style.transform = 'rotateX(0deg) rotateY(0deg) translateZ(0) scale(1)'; }
+    if(wrap){ wrap.style.transform = 'translate3d(0,0,0)'; }
+  }
+  ['btnShot','dPng'].forEach(function(id){
+    var b = $(id); if(!b) return;
+    b.addEventListener('click', function(){
+      neutral3d();
+      setTimeout(function(){ /* biarkan posisi baru mengikuti mouse lagi */ }, 80);
+    }, true);
+  });
+
+  log('v1.8: stempel hari/tanggal Masehi+Hijriyah, tombol MOTIVASI, bingkai 3D (geser · flip · ikut mouse), frame screensaver', 'acc');
+}
+
+
 /* ---------------- START ---------------- */
 var entered = false;
 function startApp(auto){
@@ -2866,7 +3342,7 @@ function boot(){
     finishBoot();
   }
 
-  log('Boot: MATRIX ORBIT 3D v1.7', 'acc');
+  log('Boot: MATRIX ORBIT 3D v1.8', 'acc');
   log('Menyiapkan kanvas matrix…');
 }
 
