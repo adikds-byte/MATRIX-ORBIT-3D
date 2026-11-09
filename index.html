@@ -763,6 +763,100 @@ body.light .modal .sheet{background:linear-gradient(168deg,rgba(255,255,255,.78)
   border-color:rgba(0,0,0,.12)!important;color:#0a1a28}
 
 </style>
+<style id="v20css">
+/* =====================================================================
+   v2.0 · RADAR WINDY SEBAGAI LATAR BELAKANG + TRANSISI FLIP 3D
+   ===================================================================== */
+#wxBg{position:fixed;inset:0;z-index:1;overflow:hidden;pointer-events:none;background:#04121c;
+  opacity:0;transform:perspective(1700px) rotateY(-180deg) scale(.78);
+  transform-origin:50% 47%;backface-visibility:hidden;
+  transition:transform .9s cubic-bezier(.22,.9,.24,1),opacity .5s ease}
+#wxBg iframe{width:100%;height:100%;border:0;display:block;
+  filter:saturate(1.16) contrast(1.05) brightness(.96)}
+#wxBgVeil{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(circle at 50% 45%,rgba(3,7,15,0) 40%,rgba(3,7,15,.42) 82%,rgba(3,7,15,.68) 100%)}
+body.radarOn #wxBg{opacity:1;transform:perspective(1700px) rotateY(0deg) scale(1)}
+/* bumi 3D berputar keluar seperti kartu */
+#webgl{transform-origin:50% 47%;backface-visibility:hidden;
+  transition:transform .9s cubic-bezier(.22,.9,.24,1),opacity .5s ease,filter .65s ease}
+body.radarOn #webgl{transform:perspective(1700px) rotateY(180deg) scale(.78);opacity:0;filter:blur(4px)}
+/* suasana ikut menyesuaikan agar peta terbaca */
+body.radarOn #matrix{opacity:.24}
+body.radarOn #shade{opacity:.5}
+body.radarOn #scan{opacity:.2}
+/* kilau sapuan saat flip */
+#wxFlipSweep{position:fixed;inset:0;z-index:5;pointer-events:none;opacity:0;
+  background:linear-gradient(100deg,transparent 32%,rgba(140,225,255,.20) 50%,transparent 68%)}
+body.radarFlip #wxFlipSweep{animation:radarSweep .9s ease}
+@keyframes radarSweep{0%{opacity:0;transform:translateX(-55%)}32%{opacity:1}100%{opacity:0;transform:translateX(55%)}}
+/* ============ DECK RADAR PROFESIONAL ============ */
+#wxBgBar{position:fixed;right:14px;bottom:104px;z-index:16;display:none;flex-direction:column;gap:8px;
+  width:232px;padding:10px;border-radius:16px;
+  background:linear-gradient(168deg,rgba(18,33,50,.76),rgba(6,14,24,.86));
+  border:1px solid rgba(255,255,255,.15);
+  -webkit-backdrop-filter:blur(22px) saturate(175%);backdrop-filter:blur(22px) saturate(175%);
+  box-shadow:0 26px 64px rgba(0,0,0,.58),0 1px 0 rgba(255,255,255,.15) inset;
+  transform-origin:100% 100%}
+body.radarOn #wxBgBar{display:flex;animation:macCardIn .42s cubic-bezier(.16,1.2,.3,1) both}
+.wxdHead{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:9px;letter-spacing:.1em;min-height:22px}
+.wxdDot{width:7px;height:7px;border-radius:50%;background:#22ff9c;box-shadow:0 0 10px #22ff9c;flex:0 0 auto;
+  animation:wxdPulse 1.6s ease-in-out infinite}
+@keyframes wxdPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+#wxBgCity{color:#eafff5;font-weight:700;letter-spacing:.1em;white-space:nowrap;overflow:hidden;
+  text-overflow:ellipsis;max-width:86px;transition:color .25s}
+#wxBgCity.sync{color:#22ff9c;text-shadow:0 0 14px rgba(34,255,156,.7)}
+#wxBgCoord{margin-left:auto;color:#7fa6c4;font-size:8px;letter-spacing:.03em;white-space:nowrap}
+#wxBgRefresh{width:22px;height:22px;border-radius:7px;display:grid;place-items:center;cursor:pointer;flex:0 0 auto;
+  color:#bfe9ff;background:rgba(56,189,248,.14);border:1px solid rgba(56,189,248,.34);font-size:11px;transition:.18s}
+#wxBgRefresh:hover{background:#38bdf8;color:#03130f;border-color:#38bdf8}
+#wxBgRefresh.spin{animation:wxdSpin .8s linear infinite}
+@keyframes wxdSpin{to{transform:rotate(360deg)}}
+#wxBgLayers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+#wxBgLayers button{font-family:var(--mono);font-weight:700;font-size:8px;letter-spacing:.06em;padding:7px 1px;
+  border-radius:8px;cursor:pointer;color:#9fc4dd;background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.1);transition:.16s}
+#wxBgLayers button:hover{color:#eafff5;border-color:rgba(34,255,156,.45);background:rgba(34,255,156,.12)}
+#wxBgLayers button.on{background:linear-gradient(135deg,#22ff9c,#38bdf8);color:#04140e;border-color:transparent;
+  box-shadow:0 0 16px rgba(34,255,156,.32)}
+.wxdFoot{display:flex;gap:5px}
+.wxdFoot button{flex:1 1 0;min-width:0;display:inline-flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-weight:700;font-size:7.6px;letter-spacing:.04em;padding:7px 1px;border-radius:8px;
+  cursor:pointer;color:#cfeaff;background:rgba(6,18,30,.8);border:1px solid rgba(56,189,248,.32);
+  transition:.18s;white-space:nowrap}
+.wxdFoot button:hover{background:rgba(34,255,156,.18);color:#eafff5;border-color:rgba(34,255,156,.55)}
+#wxBgLive.on{background:linear-gradient(135deg,#22ff9c,#38bdf8);color:#04140e;border-color:transparent;
+  box-shadow:0 0 16px rgba(34,255,156,.4)}
+/* indikator memuat peta */
+#wxBgLoad{position:absolute;inset:0;z-index:2;display:grid;place-items:center;gap:12px;opacity:0;pointer-events:none;
+  background:rgba(3,10,18,.5);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);transition:opacity .3s}
+body.wxLoading #wxBgLoad{opacity:1}
+#wxBgLoad span{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:#bfeaff}
+.wxdSpinner{width:34px;height:34px;border-radius:50%;border:2px solid rgba(56,189,248,.22);
+  border-top-color:#22ff9c;animation:wxdSpin .9s linear infinite}
+/* mode peta interaktif */
+body.radarLive #wxBg{pointer-events:auto}
+body.radarLive #ui,body.radarLive #ui > *{pointer-events:none!important}
+body.radarLive #radar{opacity:.3}
+#wxLiveHint{position:fixed;left:50%;top:10px;z-index:17;transform:translate(-50%,-16px);opacity:0;pointer-events:none;
+  padding:8px 14px;border-radius:12px;font-family:var(--mono);font-weight:700;font-size:9px;letter-spacing:.12em;
+  color:#04140e;background:linear-gradient(135deg,#22ff9c,#38bdf8);
+  box-shadow:0 12px 30px rgba(34,255,156,.3);transition:.26s}
+body.radarLive #wxLiveHint{opacity:1;transform:translate(-50%,0)}
+/* elemen radar kecil di dalam bingkai tidak dipakai lagi */
+#wxBadge,#wxExpand{display:none!important}
+@media (max-width:900px){
+  #wxBgBar{right:8px;bottom:146px;width:200px;padding:8px;gap:6px}
+  #wxBgLayers button{font-size:7.2px;padding:6px 1px}
+  .wxdFoot button{font-size:6.8px;padding:6px 1px}
+  #wxLiveHint{font-size:8px;padding:6px 10px}
+}
+/* elemen radar kecil di dalam bingkai tidak dipakai lagi */
+#wxBadge,#wxExpand{display:none!important}
+@media (prefers-reduced-motion:reduce){
+  #wxBg,#webgl{transition:none!important}
+  body.radarFlip #wxFlipSweep{animation:none!important}
+}
+</style>
 </head>
 <body>
 
@@ -770,11 +864,28 @@ body.light .modal .sheet{background:linear-gradient(168deg,rgba(255,255,255,.78)
 <canvas id="matrix"></canvas>
 <div id="shade"></div>
 <div id="scan"></div>
+<div id="wxBg"></div>
+<div id="wxFlipSweep"></div>
+<div id="wxBgBar" role="group" aria-label="Kontrol radar cuaca">
+  <div class="wxdHead">
+    <span class="wxdDot"></span>
+    <b id="wxBgCity">KUDUS</b>
+    <span id="wxBgCoord">—</span>
+    <button id="wxBgRefresh" title="Muat ulang peta radar">⟳</button>
+  </div>
+  <div id="wxBgLayers" aria-label="Tema lapisan radar"></div>
+  <div class="wxdFoot">
+    <button id="wxBgLive" title="Aktifkan geser/zoom peta & menu Windy">🖱 PETA</button>
+    <button id="wxBgFull" title="Buka peta radar layar penuh">⛶ PENUH</button>
+    <button id="wxBgOff" title="Kembali ke bumi 3D">🌍 BUMI</button>
+  </div>
+</div>
+<div id="wxLiveHint">MODE PETA AKTIF · GESER / ZOOM / MENU WINDY · ESC UNTUK SELESAI</div>
 
 <!-- ================= BOOT ================= -->
 <div id="boot">
   <div class="bootInner">
-    <div class="bootTag">NEWBIE AI · REAL-TIME 3D ENGINE · v1.9</div>
+    <div class="bootTag">NEWBIE AI · REAL-TIME 3D ENGINE · v2.1</div>
     <h1>MATRIX <span>ORBIT</span> 3D</h1>
     <p>Chat AI · radar cuaca layar penuh · motivasi &amp; doa Qur'an · HUD orbit atom · slideshow foto</p>
     <div class="bootBar"><i id="bootFill"></i></div>
@@ -787,7 +898,7 @@ body.light .modal .sheet{background:linear-gradient(168deg,rgba(255,255,255,.78)
 <!-- ================= UI ================= -->
 <div id="ui">
   <header id="topbar">
-    <div class="brand"><span class="dot"></span> MATRIX ORBIT 3D <em>v1.9</em></div>
+    <div class="brand"><span class="dot"></span> MATRIX ORBIT 3D <em>v2.1</em></div>
     <div id="hdrStamp" title="Hari, tanggal Masehi & Hijriyah, dan waktu sekarang">
       <span id="hdDay">SENIN</span><i class="hsSep"></i>
       <span id="hdDate">9 November 2026</span><i class="hsSep"></i>
@@ -885,7 +996,7 @@ body.light .modal .sheet{background:linear-gradient(168deg,rgba(255,255,255,.78)
         <label class="lbl">Isi bingkai
           <select id="frameMode">
             <option value="foto">Foto / hologram wajah</option>
-            <option value="cuaca">Radar cuaca (Windy)</option>
+            <option value="cuaca">Radar cuaca · latar belakang</option>
           </select>
         </label>
         <label class="lbl">Bentuk bingkai
@@ -1007,6 +1118,7 @@ body.light .modal .sheet{background:linear-gradient(168deg,rgba(255,255,255,.78)
         <div class="helpItem"><b>Motivasi &amp; Doa</b>Tombol MOTIVASI: kartu doa dari Al-Qur'an (teks Utsmani + terjemahan), motivasi, dan kata bijak, berganti otomatis.</div>
         <div class="helpItem"><b>Reset default</b>Ikon ↺ di kanan atas atau tombol di Setelan untuk mengembalikan semua ke bawaan, termasuk bingkai foto.</div>
         <div class="helpItem"><b>Foto berganti otomatis</b>Hologram berganti foto tiap beberapa detik (4/6/10/15/30 dtk) dengan transisi halus. Atur di Setelan.</div>
+        <div class="helpItem"><b>Radar jadi latar</b>Tombol CUACA memindahkan radar Windy ke seluruh latar belakang dengan transisi flip 3D, sementara bumi 3D berputar keluar. Tekan lagi untuk kembali ke bumi. Bingkai foto tetap di tengah.</div>
         <div class="helpItem"><b>Radar layar penuh</b>Ketuk ikon ⛶ di sudut bingkai cuaca. Peta membesar, menu atas dan dock tetap terlihat. Esc atau PERKECIL untuk kembali.</div>
         <div class="helpItem"><b>HUD orbit atom</b>Tiga orbit elektron berputar mengelilingi foto dengan warna berganti. Tombol HUD di dock untuk on/off.</div>
         <div class="helpItem"><b>Antarmuka macOS</b>Setiap panel (galeri, motivasi, chat, setelan, bantuan, aplikasi) muncul dengan animasi spring dan kaca semi transparan; latar belakang tetap terlihat tanpa lapisan gelap.</div>
@@ -1994,6 +2106,7 @@ function bindUI(){
   initV17();
   initV18();
   initV19();
+  initV110();
 }
 
 function openModal(id){ $(id).classList.add('on'); }
@@ -3457,6 +3570,250 @@ function initV19(){
   log('v1.9: antarmuka gaya macOS (panel kaca semi transparan, latar tetap terlihat)', 'acc');
 }
 
+/* =====================================================================
+   v2.1 : RADAR WINDY SEBAGAI LATAR + SINKRON LOKASI + MENU TEMA
+          (deck kontrol: lapisan radar, muat ulang, peta interaktif)
+   ===================================================================== */
+function initV110(){
+  var bg = $('wxBg'), bgFrame = null, loadT = null;
+  var LAYERS = [['radar','RADAR'],['rain','HUJAN'],['clouds','AWAN'],
+                ['wind','ANGIN'],['temp','SUHU'],['pressure','TEKANAN']];
+  var ov = 'radar';
+  var lastLoc = '', live = false;
+
+  function zoomLevel(){ return window.innerWidth < 720 ? 5 : (window.innerWidth < 1100 ? 6 : 6); }
+  function bgUrl(){
+    var lat = (+CFG.wxLat).toFixed(4), lon = (+CFG.wxLon).toFixed(4);
+    return 'https://embed.windy.com/embed2.html?lat=' + lat + '&lon=' + lon +
+      '&detailLat=' + lat + '&detailLon=' + lon +
+      '&width=' + Math.round(window.innerWidth) + '&height=' + Math.round(window.innerHeight) +
+      '&zoom=' + zoomLevel() + '&level=surface&overlay=' + ov + (ov === 'radar' ? '&product=radar' : '') +
+      '&menu=true&message=false&marker=true&calendar=now&pressure=false&type=map&location=coordinates' +
+      '&detail=false&metricWind=default&metricTemp=default&radarRange=-1';
+  }
+  function ensureBg(){
+    if(!bg || bgFrame) return;
+    bgFrame = document.createElement('iframe');
+    bgFrame.id = 'wxBgFrame';
+    bgFrame.title = 'Radar cuaca Windy sebagai latar';
+    bgFrame.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+    bgFrame.setAttribute('allow', 'fullscreen');
+    bgFrame.addEventListener('load', function(){
+      document.body.classList.remove('wxLoading');
+      spin(false);
+      window.clearTimeout(loadT);
+    });
+    bg.appendChild(bgFrame);
+    var veil = document.createElement('div'); veil.id = 'wxBgVeil'; bg.appendChild(veil);
+    var ld = document.createElement('div'); ld.id = 'wxBgLoad';
+    ld.innerHTML = '<div class="wxdSpinner"></div><span>MEMUAT RADAR…</span>';
+    bg.appendChild(ld);
+  }
+  function spin(on){
+    var b = $('wxBgRefresh');
+    if(b) b.classList.toggle('spin', !!on);
+    if(on){ window.clearTimeout(loadT); loadT = setTimeout(function(){ document.body.classList.remove('wxLoading'); spin(false); }, 12000); }
+  }
+  function loadMap(force){
+    ensureBg();
+    if(!bgFrame) return;
+    var u = bgUrl();
+    if(!force && bgFrame.dataset.u === u && bgFrame.getAttribute('src')) return false;
+    bgFrame.dataset.u = u;
+    document.body.classList.add('wxLoading');
+    spin(true);
+    try{ bgFrame.src = u; }catch(e){}
+    return true;
+  }
+  function flipFx(){
+    document.body.classList.remove('radarFlip');
+    void document.body.offsetWidth;
+    document.body.classList.add('radarFlip');
+    setTimeout(function(){ document.body.classList.remove('radarFlip'); }, 980);
+  }
+
+  /* ---------- sinkron lokasi ---------- */
+  function locKey(){ return (+CFG.wxLat).toFixed(4) + ',' + (+CFG.wxLon).toFixed(4); }
+  function paintLoc(){
+    var c = $('wxBgCity'), k = $('wxBgCoord');
+    if(c) c.textContent = String(CFG.wxCity || '—').toUpperCase();
+    if(k) k.textContent = (+CFG.wxLat).toFixed(4) + ', ' + (+CFG.wxLon).toFixed(4);
+  }
+  function flashLoc(){
+    var c = $('wxBgCity'); if(!c) return;
+    c.classList.add('sync');
+    setTimeout(function(){ c.classList.remove('sync'); }, 1400);
+  }
+  function syncLoc(){
+    var k = locKey(), changed = (k !== lastLoc);
+    lastLoc = k;
+    paintLoc();
+    if(changed){
+      flashLoc();
+      if(document.body.classList.contains('radarOn')) loadMap(true);
+      if(document.getElementById('wxStage').classList.contains('on')) openFull();
+      log('Radar disinkronkan → ' + (CFG.wxCity || '') + ' (' + k + ')', 'acc');
+    }
+    return changed;
+  }
+  var baseSave = saveCfg;
+  saveCfg = function(){
+    baseSave();
+    if(document.body.classList.contains('radarOn')){ syncLoc(); }
+    else { paintLoc(); }
+  };
+  setInterval(function(){
+    if(document.body.classList.contains('radarOn')) syncLoc();
+  }, 1000);
+
+  /* ---------- deck lapisan/tema ---------- */
+  function buildLayers(){
+    var box = $('wxBgLayers'); if(!box || box.dataset.built) return;
+    box.dataset.built = '1';
+    var h = '';
+    for(var i = 0; i < LAYERS.length; i++){
+      h += '<button type="button" data-ov="' + LAYERS[i][0] + '"' +
+           (LAYERS[i][0] === ov ? ' class="on"' : '') + '>' + LAYERS[i][1] + '</button>';
+    }
+    box.innerHTML = h;
+    box.addEventListener('click', function(e){
+      var b = e.target.closest ? e.target.closest('button[data-ov]') : null;
+      if(!b) return;
+      ov = b.getAttribute('data-ov');
+      var kids = box.children;
+      for(var j = 0; j < kids.length; j++) kids[j].classList.toggle('on', kids[j] === b);
+      loadMap(true);
+      if(typeof toast === 'function') toast('Tema radar: ' + b.textContent);
+      log('Radar layer → ' + ov, 'acc');
+    });
+  }
+
+  /* ---------- peta penuh mengikuti tema & lokasi ---------- */
+  function fullUrl(){
+    var lat = (+CFG.wxLat).toFixed(4), lon = (+CFG.wxLon).toFixed(4);
+    return 'https://embed.windy.com/embed2.html?lat=' + lat + '&lon=' + lon +
+      '&detailLat=' + lat + '&detailLon=' + lon + '&width=1200&height=800&zoom=6&level=surface' +
+      '&overlay=' + ov + (ov === 'radar' ? '&product=radar' : '') +
+      '&menu=true&message=true&marker=true&calendar=now&pressure=false&type=map&location=coordinates' +
+      '&detail=true&metricWind=default&metricTemp=default&radarRange=-1';
+  }
+  function openFull(){
+    if(window.mxWxFull) window.mxWxFull(true);
+    var big = $('wxBig');
+    if(big){ var u = fullUrl(); if(big.getAttribute('src') !== u){ try{ big.src = u; }catch(e){} } }
+    var c2 = $('wxCity2'); if(c2) c2.textContent = CFG.wxCity || 'Kudus';
+    var cd = $('wxCoord'); if(cd) cd.textContent = (+CFG.wxLat).toFixed(4) + ', ' + (+CFG.wxLon).toFixed(4);
+  }
+  window.mxRadarFull = openFull;
+
+  /* ---------- mode peta interaktif ---------- */
+  function setLive(on){
+    live = !!on;
+    document.body.classList.toggle('radarLive', live);
+    var b = $('wxBgLive'); if(b) b.classList.toggle('on', live);
+    if(live){
+      loadMap(false);
+      if(typeof toast === 'function') toast('Mode peta aktif · geser, zoom, dan buka menu Windy');
+      log('Mode peta radar interaktif aktif', 'acc');
+    }
+  }
+  window.mxRadarLive = function(on){ setLive(on); };
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && document.body.classList.contains('radarLive')){ setLive(false); }
+  }, true);
+
+  /* ---------- nyala / mati ---------- */
+  function syncDock(on){ var d = $('dWx'); if(d) d.classList.toggle('on', !!on); }
+  function radarSet(on, silent){
+    var was = document.body.classList.contains('radarOn');
+    if(on){
+      ensureBg(); buildLayers();
+      syncLoc();
+      if(!was){
+        document.body.classList.add('radarOn');
+        syncDock(true);
+        flipFx();
+        if(!silent) log('Latar: radar Windy ' + (CFG.wxCity || '') + ' · bumi 3D keluar', 'acc');
+        if(!window.__wxdHint){
+          window.__wxdHint = 1;
+          setTimeout(function(){
+            if(typeof toast === 'function'){
+              toast('Radar aktif · tekan 🖱 PETA untuk geser peta & buka menu Windy');
+            }
+          }, 900);
+        }
+      }
+      loadMap(!was);
+    } else if(was){
+      document.body.classList.remove('radarOn');
+      syncDock(false);
+      setLive(false);
+      flipFx();
+      if(!silent) log('Latar: bumi 3D kembali', 'acc');
+    }
+  }
+  window.mxRadarBg = function(on){ radarSet(!!on); };
+
+  /* ---------- bingkai tetap foto: radar tidak di dalam frame ---------- */
+  function keepFramePhoto(){
+    var wf = $('wxFrame');
+    if(wf && wf.classList.contains('on')) wf.classList.remove('on');
+    var fi = $('faceImg');
+    if(fi && fi.style.display === 'none') fi.style.display = '';
+  }
+  keepFramePhoto();
+  var wfEl = $('wxFrame');
+  if(wfEl && window.MutationObserver){
+    new MutationObserver(keepFramePhoto).observe(wfEl, { attributes:true, attributeFilter:['class'] });
+  }
+  var fiEl = $('faceImg');
+  if(fiEl && window.MutationObserver){
+    new MutationObserver(function(){ if(CFG.frameMode === 'cuaca') keepFramePhoto(); })
+      .observe(fiEl, { attributes:true, attributeFilter:['style'] });
+  }
+
+  /* ---------- label & pesan sesuai mode ---------- */
+  var baseMx = window.mxFrame;
+  window.mxFrame = function(mode){
+    baseMx(mode);
+    keepFramePhoto();
+    var cuaca = (CFG.frameMode === 'cuaca');
+    if(cuaca){
+      if($('tagName')) $('tagName').textContent = 'LATAR · RADAR WINDY';
+      if($('faceState')) $('faceState').textContent = 'AKTIF';
+      if($('faceSrc')) $('faceSrc').textContent = 'WINDY · LATAR';
+    }
+    radarSet(cuaca);
+    if(typeof toast === 'function'){
+      toast(cuaca ? 'Radar Windy jadi latar · bumi 3D keluar (flip 3D)' : 'Bumi 3D kembali (flip 3D)');
+    }
+  };
+
+  /* ---------- tombol deck ---------- */
+  var off = $('wxBgOff');
+  if(off) off.addEventListener('click', function(){ window.mxFrame('foto'); });
+  var full = $('wxBgFull');
+  if(full) full.addEventListener('click', openFull);
+  var liveBtn = $('wxBgLive');
+  if(liveBtn) liveBtn.addEventListener('click', function(){ setLive(!live); });
+  var ref = $('wxBgRefresh');
+  if(ref) ref.addEventListener('click', function(){ loadMap(true); if(typeof toast === 'function') toast('Memuat ulang peta radar…'); });
+  window.addEventListener('resize', function(){
+    if(document.body.classList.contains('radarOn')){
+      window.clearTimeout(window.__wxdResize);
+      window.__wxdResize = setTimeout(function(){ loadMap(true); }, 900);
+    }
+  });
+
+  buildLayers();
+  paintLoc();
+  lastLoc = locKey();
+  radarSet(CFG.frameMode === 'cuaca', true);
+
+  log('v2.1: radar latar · sinkron lokasi · menu tema lapisan · mode peta interaktif', 'acc');
+}
+
+
 /* ---------------- START ---------------- */
 var entered = false;
 function startApp(auto){
@@ -3509,7 +3866,7 @@ function boot(){
     finishBoot();
   }
 
-  log('Boot: MATRIX ORBIT 3D v1.9', 'acc');
+  log('Boot: MATRIX ORBIT 3D v2.1', 'acc');
   log('Menyiapkan kanvas matrix…');
 }
 
